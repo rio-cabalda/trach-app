@@ -54,7 +54,7 @@ const AgentCard: React.FC<any> = ({ agent }) => {
 
   // Handle view profile click
   const handleViewProfile = () => {
-    // router.push(`/details?id=${agent?.id}`);
+    router.push(`/details?advertiser_id=${agent?.advertiser_id}&nrds_id=${agent?.nrds_id}`);
   };
 
   if(!agent){

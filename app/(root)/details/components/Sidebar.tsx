@@ -23,35 +23,55 @@ import Team from './Team';
 import Reviews from './Reviews';
  
 export default function SideBar() {
-  const [agentDetails, setAgentDetails] = useState<any>({});
+  const [agentDetails, setAgentDetails] = useState({
+    role: '',
+    profile_name: '',
+    fullname: '',
+    phone_number: '',
+    bio: '',
+    description: '',
+    photo: {
+      href: '',
+    },
+  });
   useEffect(() => {
     const fetchData = async () => {
-      // Get the current URL
       const url = new URL(window.location.href);
-      // Extract the ID from the URL
-      const id = url.searchParams.get('id');
-
-      const apiKey = process.env.NEXT_PUBLIC_RAPID_API_KEY;
-const apiHost = process.env.NEXT_PUBLIC_RAPID_API_HOST;
-
-if (!apiKey || !apiHost) {
-  console.error('Rapid API key or host is missing. Please check your environment variables.');
-  // Handle the missing environment variables as needed (throw an error, provide default values, etc.)
-}
-
+      const advertiser_id = url.searchParams.get('advertiser_id');
+      const nrds_id = url.searchParams.get('nrds_id');
       const options = {
         method: 'GET',
-        url: `https://${apiHost}/agent?id=${id}`,
+        url: 'https://realty-in-us.p.rapidapi.com/agents/get-profile',
+        params: {
+          advertiser_id: advertiser_id,
+          nrds_id: nrds_id,
+        },
         headers: {
-          'X-RapidAPI-Key': apiKey,
-          'X-RapidAPI-Host':  apiHost
+          'X-RapidAPI-Key': 'ddeec46817msh45b32b0ecc215efp1732d0jsnf1ac0705742e',
+          'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com',
         },
       };
 
       try {
         const response = await axios.request(options);
-        setAgentDetails(response.data.agentDetails);
-        console.log(response.data);
+        const {
+          role,
+          description,
+          profile_name,
+          fullname,
+          phone_list: { phone_1 },
+          bio,
+          photo,
+        } = response.data;
+        setAgentDetails({
+          role,
+          profile_name,
+          fullname,
+          phone_number: phone_1.number,
+          bio,
+          photo,
+          description,
+        });
       } catch (error) {
         console.error(error);
       }
@@ -59,6 +79,8 @@ if (!apiKey || !apiHost) {
 
     fetchData();
   }, []);
+
+    
 
   const icons = [
     <HiCurrencyDollar />,
@@ -69,7 +91,15 @@ if (!apiKey || !apiHost) {
   ];
 
    // Filter keys to include only specific properties
-   const filteredKeys = ['full_name', 'review_count', 'rating', 'rating', ];
+
+
+   const filteredKeys = [
+    
+    
+    'role', 'profile_name', 'fullname', 'phone_number',
+  
+  
+  ];
    const items = filteredKeys.map((key, icon) => ({
      title: key,
      description: agentDetails[key],
@@ -110,18 +140,20 @@ if (!apiKey || !apiHost) {
         
             <div className='flex flex-col  mx-auto items-center gap-2 '>
                 <p className='text-gray-400 text-lg'>
-                    {agentDetails?.full_name}
+                    {agentDetails.profile_name}
+                    {agentDetails?.role} 
+                    
                 </p>
                 <p className='text-2xl font-extrabold text-purple-700'>
-                {agentDetails?.full_name}
+                
                 </p>
                 <div className='flex flex-1 gap- mb-2'>
                 <HiStar className='text-yellow-400'/>
                 <p className='text-gray-400 '>
-                {agentDetails?.review_count}
+                {agentDetails.bio}
                 </p>
                 <p className='text-gray-400 '>
-                {agentDetails?.rating}
+                {/* {agentDetails?.rating} */}
                 </p>
                 </div>
             </div>
@@ -198,7 +230,7 @@ if (!apiKey || !apiHost) {
     </div>
     <div className='flex-auto '>
         <Header items={items} />
-        <Overview content={agentDetails?.description}/>
+        <Overview content={agentDetails.bio}/>
         <Properties/>
         <Media/>
         <Team/>
