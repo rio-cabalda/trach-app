@@ -93,7 +93,12 @@ export interface CustomFilterProps {
 
 export interface ShowMoreProps {
   pageNumber: number;
+  totalPages: number[];
   isNext: boolean;
+  isPrev: boolean;
+  lastPage:number;
+  searchParams:  number;
+ 
 }
 
 export interface SearchManuFacturerProps {
@@ -165,6 +170,7 @@ export interface PropertyProps {
 
 
 export interface AgentProps {
+  agent_type: any;
   office:{
     name:string;
   }

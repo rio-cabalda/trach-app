@@ -23,6 +23,10 @@ export default async function Home({ searchParams }: HomeProps) {
   
   const isDataEmpty = !response?.agents || response?.agents.length === 0 || response?.agents.length < 1 ;
   console.log("isDataEmpty: ", isDataEmpty);
+
+  const sellerAgents = response.agents?.filter((agent: AgentProps) => agent.agent_type && agent.agent_type.includes('seller'))  || [];  
+  const totalPages = Math.max(1, Math.ceil(sellerAgents.length / 10));
+  const totalPagesArray = Array.from({ length: totalPages }, (_, index) => index + 1);
   
   return (
     <main className='overflow-hidden '>
@@ -73,10 +77,14 @@ export default async function Home({ searchParams }: HomeProps) {
                 </div>
               )})}
             </div>
-              {/* <ShowMore
-              pageNumber={(searchParams.page || 1) / 10}
-              isNext={(searchParams.page || 10) > response?.length}  
-            /> */}
+            <ShowMore
+  pageNumber={(searchParams.page || 1) / 10}
+  isNext={(searchParams.page || 1) < totalPages * 10}
+  isPrev={(searchParams.page || 1) <= 1}
+  lastPage={(searchParams.page || 1) - totalPages}
+  totalPages={totalPagesArray} // Pass totalPages as an array
+  searchParams={(searchParams.page || 1)} // Pass searchParams to ShowMore component
+/>
           </section>
         )}
       </div>
