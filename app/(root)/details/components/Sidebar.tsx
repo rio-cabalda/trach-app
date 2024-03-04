@@ -10,20 +10,19 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Hero } from '@/components';
 import Header from './Header';
-import {
-  HiCurrencyDollar,
-  HiOutlineClock,
-  
-  HiOutlineCalendar
-} from 'react-icons/hi';
+import { HiCurrencyDollar, HiOutlineClock, HiOutlineCalendar } from 'react-icons/hi';
+import { IoIosStar } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 import Overview from './Overview';
 import Properties from './Properties';
 import Media from './Media';
 import Team from './Team';
 import Reviews from './Reviews';
+import Image from "next/image";
+import { Menu } from '@headlessui/react'
  
 export default function SideBar() {
-  const [agentDetails, setAgentDetails] = useState({
+  const [agentDetails, setAgentDetails] = useState<any>({
     role: '',
     profile_name: '',
     fullname: '',
@@ -93,18 +92,14 @@ export default function SideBar() {
    // Filter keys to include only specific properties
 
 
-   const filteredKeys = [
-    
-    
+  const filteredKeys = [
     'role', 'profile_name', 'fullname', 'phone_number',
-  
-  
   ];
-   const items = filteredKeys.map((key, icon) => ({
-     title: key,
-     description: agentDetails[key],
-     icon:icons[icon] || null,
-   }));
+  const items = filteredKeys.map((key, icon) => ({
+    title: key,
+    description: agentDetails[key],
+    icon:icons[icon] || null,
+  }));
 
   // Get the first five keys from agentDetails
   const firstFiveKeys = agentDetails ? Object.keys(agentDetails).slice(0, 10) : [];
@@ -112,121 +107,171 @@ export default function SideBar() {
       
     const isListedOnOpen = true;
   return (
-   
-
-    <div  className='flex'>
-
-
-     
-
+  <div  className='flex'>
+        {/* <Avatar img={agent?.photo?.href} 
+          // status="away"
+          statusPosition="top-left" className="w-10 h-10 object-contain" rounded > 
+          </Avatar> */}
       
         {/* <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Agent Detailsd</h1>
-      <ul className="list-disc pl-6">
-        {firstFiveKeys.map((key) => (
-          <li key={key}>
-            <span className="font-bold">{key}:</span> {JSON.stringify(agentDetails[key])}
-          </li>
-        ))}
-      </ul>
-    </div> */}
-    <div className='flex-none '>
-  
-    <Sidebar aria-label="" className='' >
-      <Sidebar.Items>
-        <Sidebar.ItemGroup>
-         <Avatar img={agentDetails?.photo?.href} rounded size={"xl"} className='my-5' bordered color="purple"  status="away" statusPosition="bottom-right"/>
-          <Sidebar.Item>
-        
-            <div className='flex flex-col  mx-auto items-center gap-2 '>
-                <p className='text-gray-400 text-lg'>
-                    {agentDetails.profile_name}
-                    {agentDetails?.role} 
-                    
-                </p>
-                <p className='text-2xl font-extrabold text-purple-700'>
-                
-                </p>
-                <div className='flex flex-1 gap- mb-2'>
-                <HiStar className='text-yellow-400'/>
-                <p className='text-gray-400 '>
-                {agentDetails.bio}
-                </p>
-                <p className='text-gray-400 '>
-                {/* {agentDetails?.rating} */}
-                </p>
+          <h1 className="text-2xl font-bold mb-4">Agent Detailsd</h1>
+          <ul className="list-disc pl-6">
+            {firstFiveKeys.map((key) => (
+              <li key={key}>
+                <span className="font-bold">{key}:</span> {JSON.stringify(agentDetails[key])}
+              </li>
+            ))}
+          </ul>
+        </div> */}
+    <div className='flex-none'>
+      <div className="w-[21rem] flex flex-col gap-5">
+        <div className="w-full flex flex-col items-center p-6 bg-white rounded-2xl">
+          <div>
+            <Image src="/slack-logo.svg" alt='Slack Logo' width={85} height={25} />
+          </div>
+          <div className="w-full flex justify-center">
+            <div className="relative w-32 h-32 rounded-full">
+                <Image src="/margot.png" alt='Slack Logo' fill={true}/>
+                <div className="absolute bottom-2 right-1 w-6 h-6 p-1 rounded-full bg-white">
+                    <div className="w-full h-full rounded-full bg-green-500"></div>
                 </div>
             </div>
-            <div className='flex flex-col  mx-auto items-center gap-2 my-5 '>
-                <button className='bg-purple-500 py-3 text-white rounded-lg px-8 flex gap-2 hover:bg-purple-700  '>
-                <HiOutlineMail size={24}/>
-                    Send a message
-                </button>
+          </div>
+          <div className="mt-5">
+            <div className='w-full text-center font-[500] text-[#7D7D7D]'>
+              Slack
             </div>
-          </Sidebar.Item>
-          <Sidebar.Collapse  className='text-lg font-extrabold text-purple-600' label="Services">
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Products</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Sales</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Refunds</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Shipping</Sidebar.Item>
-            <Sidebar.Collapse  className='text-md font-bold text-purple-500' label="View More">
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Products</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Sales</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Refunds</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Shipping</Sidebar.Item>
-          </Sidebar.Collapse>
-          </Sidebar.Collapse>
-         
-          <Sidebar.Item href="#" icon={HiInbox}>
-            Inbox
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiUser}>
-            Users
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            Products
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiArrowSmRight}>
-            Sign In
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
-            Sign Up
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-        <Sidebar.ItemGroup>
-        <Sidebar.Collapse
-          className="text-lg font-extrabold text-purple-600"
-          label="Listed On"
-        >
-
-{isListedOnOpen ? (
-            <>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Products</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Sales</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Refunds</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Shipping</Sidebar.Item>
-            <Sidebar.Collapse  className='text-md font-bold text-purple-500' label="View More">
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Products</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Sales</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Refunds</Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>Shipping</Sidebar.Item>
-          </Sidebar.Collapse>
-          </>
-          ) : null}
-          </Sidebar.Collapse>
-          <Sidebar.Item href="#" icon={HiChartPie}>
-            Upgrade to Pro
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            Documentation
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={BiBuoy}>
-            Help
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-      </Sidebar.Items>
-    </Sidebar>
-
+            <div className='w-full text-center font-semibold text-2xl text-[#290F6A]'>
+              Verlie Borer
+            </div>
+          </div>
+          <div className="w-full flex gap-2 items-center justify-center mt-2">
+            <div className="flex">
+              <IoIosStar size={19} className="text-[#FF8933]"/>
+              <IoIosStar size={19} className="text-[#FF8933]"/>
+              <IoIosStar size={19} className="text-[#FF8933]"/>
+              <IoIosStar size={19} className="text-[#FF8933]"/>
+              <IoIosStar size={19} className="text-[#FF8933]"/>
+            </div>
+            <p className="text-sm text-[#7D7D7D] font-[500]">3.5k reviews</p>
+          </div>
+          
+          <div className='w-full mt-10'>
+            <button className='w-full bg-purple-500 py-3 text-white rounded-lg px-8 flex gap-2 hover:bg-purple-700  '>
+            <HiOutlineMail size={24}/>Send a message</button>
+          </div>
+        </div>
+        <div className="w-full flex flex-col items-center p-6 bg-white rounded-2xl">
+          <button className="w-full flex items-center justify-between py-1">
+            <span className="text-base font-semibold text-[#37005F]">Services</span>
+            <HiOutlinePlusSm size={20}/>
+          </button>
+          <div className="w-full mt-3 flex flex-col gap-2">
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">DSLR Photography</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Videography</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Floor Plans</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">For Sale Signs</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Virtual Tours</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Premium Listings</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Social Media Advertising</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Free EPC</span></div>
+          </div>
+          <Menu as="div" className="w-full mt-2">
+            <Menu.Button className="flex items-center gap-2 text-sm font-semibold text-[#9300FF]">View More <IoIosArrowDown /></Menu.Button>
+            <Menu.Items className="flex flex-col gap-2 mt-2">
+              <Menu.Item >
+                {({ active }) => (
+                  <a
+                    className={`${active && 'bg-purple-400 text-gray-800'} flex text-[#7D7D7D] items-center gap-2`}
+                    href=""
+                  >
+                    <HiChartPie />
+                    <p className="font-[500] text-[15px]">Account settings</p>
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item >
+                {({ active }) => (
+                  <a
+                    className={`${active && 'bg-purple-400 text-gray-800'} flex text-[#7D7D7D] items-center gap-2`}
+                    href=""
+                  >
+                    <HiChartPie />
+                    <p className="font-[500] text-[15px]">Account settings</p>
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item >
+                {({ active }) => (
+                  <a
+                    className={`${active && 'bg-purple-400 text-gray-800'} flex text-[#7D7D7D] items-center gap-2`}
+                    href=""
+                  >
+                    <HiChartPie />
+                    <p className="font-[500] text-[15px]">Account settings</p>
+                  </a>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
+        
+        </div>
+        <div className="w-full flex flex-col items-center p-6 bg-white rounded-2xl">
+          <button className="w-full flex items-center justify-between py-1">
+            <span className="text-base font-semibold text-[#37005F]">Listed On</span>
+            <HiOutlinePlusSm size={20}/>
+          </button>
+          <div className="w-full mt-3 flex flex-col gap-2">
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">DSLR Photography</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Videography</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Floor Plans</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">For Sale Signs</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Virtual Tours</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Premium Listings</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Social Media Advertising</span></div>
+              <div className="flex text-[#7D7D7D] items-center gap-2"><HiChartPie /> <span className="font-[500] text-[15px]">Free EPC</span></div>
+          </div>
+          <Menu as="div" className="w-full mt-2">
+            <Menu.Button className="flex items-center gap-2 text-sm font-semibold text-[#9300FF]">View More <IoIosArrowDown /></Menu.Button>
+            <Menu.Items className="flex flex-col gap-2 mt-2">
+              <Menu.Item >
+                {({ active }) => (
+                  <a
+                    className={`${active && 'bg-purple-400 text-gray-800'} flex text-[#7D7D7D] items-center gap-2`}
+                    href=""
+                  >
+                    <HiChartPie />
+                    <p className="font-[500] text-[15px]">Account settings</p>
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item >
+                {({ active }) => (
+                  <a
+                    className={`${active && 'bg-purple-400 text-gray-800'} flex text-[#7D7D7D] items-center gap-2`}
+                    href=""
+                  >
+                    <HiChartPie />
+                    <p className="font-[500] text-[15px]">Account settings</p>
+                  </a>
+                )}
+              </Menu.Item>
+              <Menu.Item >
+                {({ active }) => (
+                  <a
+                    className={`${active && 'bg-purple-400 text-gray-800'} flex text-[#7D7D7D] items-center gap-2`}
+                    href=""
+                  >
+                    <HiChartPie />
+                    <p className="font-[500] text-[15px]">Account settings</p>
+                  </a>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
+        
+        </div>
+      </div>
     </div>
     <div className='flex-auto '>
         <Header items={items} />

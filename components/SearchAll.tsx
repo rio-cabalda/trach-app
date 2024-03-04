@@ -34,9 +34,14 @@ const SearchAll = () => {
     
   },[userIsTyping])
   
-  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
+    if(newValue===""){
+      setIsLoading(false);
+      setSearchOpen(false);
+      setLocation("")
+      return;
+    }
     setLocation(newValue);
     setUserIsTyping(true);
     if(!seachOpen){setSearchOpen(true)}
@@ -171,20 +176,20 @@ return (
             {/* Dropdown in search area. Dummy list of city */}
             {seachOpen && <div className="absolute w-full flex justify-center top-20 left-0 bg-gray-50 border border-gray-300 rounded-md overflow-hidden z-[1]">
               {isLoading &&
-                <div className="flex items-center gap-4 py-4">
-                    <div className="inline-block h-8 w-8 text-purple-900 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                <div className="flex items-center gap-2 py-4 text-sm font-semibold">
+                    <div className="inline-block h-5 w-5 text-purple-900 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                     role="status">
                     <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]" >Loading...</span>
                     </div>
                     Loading list...
                 </div>}
                 {userIsTyping && <div className="flex items-end py-4">
-                  <span className="font-bold">Typing</span>
+                  <span className="font-semibold text-sm">Typing</span>
                   <div className='flex -translate-y-1 space-x-1 justify-center items-end h-fit dark:invert'>
-                      <span className='sr-only'>Loading...</span>
-                      <div className='h-[5px] w-[5px] bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-                    <div className='h-[5px] w-[5px] bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-                    <div className='h-[5px] w-[5px] bg-black rounded-full animate-bounce'></div>
+                      <span className='sr-only text-sm'>Loading...</span>
+                      <div className='h-[3px] w-[3px] bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+                    <div className='h-[3px] w-[3px] bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+                    <div className='h-[3px] w-[3px] bg-black rounded-full animate-bounce'></div>
                   </div>
                   </div>}
               {(suggestedList?.length > 1 && !isLoading && !userIsTyping) && 

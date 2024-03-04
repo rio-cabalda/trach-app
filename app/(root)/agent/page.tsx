@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import AgentCard from './components/AgentCard';
 import { AgentProps, HomeProps } from '@/types';
 import { CustomButton, CustomFilter, ShowMore } from '@/components';
@@ -9,20 +10,44 @@ import { fetchAgent } from "@/utils/fetchApiData";
 
 export default async function Home({ searchParams }: HomeProps) {
   const {agentType, location, postalcode, limit} = searchParams;
-  console.log("postalcode", postalcode);
+
+  
+
   
   const response = await fetchAgent(postalcode?.trim(),limit?.trim());
   // const response:any=[];
-  console.log("Result data: ",response);
+  // console.log(response);
+  
+  // const [response, setResponse] = useState<any>([]);
+  // useEffect(()=>{
+  //   const storedData:any = localStorage.getItem('nevadaData');
+  //   if(!storedData){
+  //     console.log("Running use effect");
+  //     const fetchData =async()=>{
+  //       console.log("Fetching data...1");
+        
+  //       const response = await fetchAgent(postalcode?.trim(),limit?.trim());
+        
+  //       console.log("Fetching data...2", response);
+  //     if(!storedData && response.agents){
+  //       localStorage.setItem('nevadaData', JSON.stringify(response));
+  //       console.log('Retrieved data:', response);
+  //     }else{
+  //       setResponse(JSON.parse(storedData));
+  //     }
+  //     }
 
-  const dataArray = Array.from({ length: 20 }).fill(undefined);
+  //     fetchData();
+  // }
+  // setResponse(JSON.parse(storedData));
+  // },[])
   
   const handleShowMore = () => {
     const newLimit = Number(limit) + 10;
   }
   
   const isDataEmpty = !response?.agents || response?.agents.length === 0 || response?.agents.length < 1 ;
-  console.log("isDataEmpty: ", isDataEmpty);
+  // console.log("isDataEmpty: ", isDataEmpty);
 
   const sellerAgents = response.agents?.filter((agent: AgentProps) => agent.agent_type && agent.agent_type.includes('seller'))  || [];  
   const totalPages = Math.max(1, Math.ceil(sellerAgents.length / 10));
@@ -66,7 +91,7 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
         ) : (
           <section>
-            <div className='home__cars-wrapper gap-2'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6'>
             {response.agents.slice(0,10).map((agent: AgentProps, index: number) => {
                 console.log("agent map: ", agent);
                 
