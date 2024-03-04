@@ -27,11 +27,8 @@ const SearchAll = () => {
   const [suggestedList, setSuggestedList] = useState<any[]>([]);
   const [seachOpen, setSearchOpen] = useState(false);
   const [selectedLocationData, setSelectedLocationData] = useState<any>(null);
-  console.log("result",suggestedList);
-  console.log("location",location.length);
 
   useEffect(()=>{
-    
   },[userIsTyping])
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +87,7 @@ const SearchAll = () => {
     try {
       if(selectedLocationData){
         // await updateSearchParams(type, location.toLowerCase());
-        router.push(`/agent?agentType=${agentType}&location=${location}&postalcode=${selectedLocationData.fips}&limit=10`);
+        router.push(`/agent?agentType=${agentType}&location=${location}&postalcode=${selectedLocationData.fips}&limit=20`);
       }
     } catch (error) {
       console.error('Error updating search parameters:', error);
@@ -127,12 +124,12 @@ const SearchAll = () => {
  
   const handleSearchSell = () => {
     // handleSearch('sale');
-    handleSearch('sell');
+    handleSearch('seller');
   };
 
   const handleSearchRent = () => {
     // handleSearch('rent');
-    handleSearch('agent');
+    handleSearch('buyer');
   };
 
   // const handleSearchAgent = () => {

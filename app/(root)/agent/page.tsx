@@ -11,22 +11,22 @@ import { fetchAgent } from "@/utils/fetchApiData";
 export default async function Home({ searchParams }: HomeProps) {
   const {agentType, location, postalcode, limit} = searchParams;
 
-  
-
-  
   const response = await fetchAgent(postalcode?.trim(),limit?.trim());
   // const response:any=[];
-  // console.log(response);
+
+  console.log("response filtered",response);
+    
   
   // const [response, setResponse] = useState<any>([]);
   // useEffect(()=>{
   //   const storedData:any = localStorage.getItem('nevadaData');
   //   if(!storedData){
   //     console.log("Running use effect");
+      
   //     const fetchData =async()=>{
   //       console.log("Fetching data...1");
         
-  //       const response = await fetchAgent(postalcode?.trim(),limit?.trim());
+  //       // const response = await fetchAgent(postalcode?.trim(),limit?.trim());
         
   //       console.log("Fetching data...2", response);
   //     if(!storedData && response.agents){
@@ -45,13 +45,13 @@ export default async function Home({ searchParams }: HomeProps) {
   const handleShowMore = () => {
     const newLimit = Number(limit) + 10;
   }
+  const FiltteredAgentByType = response?.agents?.filter((agent: AgentProps) => agent.agent_type && agent.agent_type.includes(agentType))  || [];  
+  const totalPages = Math.max(1, Math.ceil(FiltteredAgentByType.length / 10));
+  const totalPagesArray = Array.from({ length: totalPages }, (_, index) => index + 1);
   
   const isDataEmpty = !response?.agents || response?.agents.length === 0 || response?.agents.length < 1 ;
   // console.log("isDataEmpty: ", isDataEmpty);
 
-  const sellerAgents = response.agents?.filter((agent: AgentProps) => agent.agent_type && agent.agent_type.includes('seller'))  || [];  
-  const totalPages = Math.max(1, Math.ceil(sellerAgents.length / 10));
-  const totalPagesArray = Array.from({ length: totalPages }, (_, index) => index + 1);
   
   return (
     <main className='overflow-hidden '>
@@ -93,8 +93,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <section>
             <div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6'>
             {response.agents.slice(0,10).map((agent: AgentProps, index: number) => {
-                console.log("agent map: ", agent);
-                
+            
               return (
                 <div key={index}>
                 

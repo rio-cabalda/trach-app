@@ -1,4 +1,5 @@
 import React from 'react';
+import { BsPencil } from "react-icons/bs";
 
 interface OverviewProps {
   content: string;
@@ -6,11 +7,13 @@ interface OverviewProps {
 
 const Overview: React.FC<OverviewProps> = ({ content }) => {
   return (
-    <div className='bg-white w-full m-3 rounded-lg'>
-      <div className='text-lg font-bold text-purple-700 mb-2 gap-5 mx-3 p-2'>
+    <div className='bg-white w-full rounded-2xl p-5'>
+      <div className='flex items-center justify-between text-lg font-bold text-[#2D0173]'>
         Overview
+        <BsPencil size={20} />
       </div>
-      <div className='text-sm   text-gray-500 mb-5 gap-5 mx-3 p-2'>
+      
+      <div className='text-sm text-gray-500 mt-4'>
         <p>{content || 'Lorem Ipsum '.repeat(50)}</p>
       </div>
     </div>

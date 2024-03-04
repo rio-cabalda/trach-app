@@ -19,6 +19,8 @@ interface AgentCardProps {
   agent: any;
 }
 
+
+
 function formatReview(value:string){
   if(value){
     if(value?.length < 2){
@@ -51,7 +53,7 @@ const AgentCard: React.FC<any> = ({ agent }) => {
   const maxPrice = formatMoney(agent?.recently_sold?.max)
   
   // console.log("Formatted money", formatMoney(agent?.recently_sold?.min));
-  
+  console.log(agent);
   // Handle view profile click
   const handleViewProfile = () => {
     router.push(`/details?advertiser_id=${agent?.advertiser_id}&nrds_id=${agent?.nrds_id}`);
@@ -66,7 +68,7 @@ const AgentCard: React.FC<any> = ({ agent }) => {
       {/* Header */}
       <div className='flex w-full h-[25px] items-center justify-between'>
         <div className='relative h-[25px] w-12'>
-          <Image loader={()=>agent?.office?.photo?.href} src={agent?.office?.photo?.href? agent?.office?.photo?.href: ""} fill={true} alt="Office Photo" objectFit="contain" />
+          <Image loader={()=>agent?.office?.photo?.href} src={agent?.office?.photo?.href? agent?.office?.photo?.href: ""} fill={true} alt="Office Photo"  />
         </div>
         <div className='flex text-green-500 items-center gap-2 font-semibold text-sm'>
           <FaCircle size={13} /> Online
@@ -85,7 +87,7 @@ const AgentCard: React.FC<any> = ({ agent }) => {
               <Image className="absolute origin-center top-0 -translate-y-2"
               loader={()=>agent?.photo?.href} src={agent?.photo?.href? agent?.photo?.href: ""}
               width={40} height={40} 
-              alt="Agent Photo" objectFit="contain" />
+              alt="Agent Photo"/>
             </div>
           </div>
 
@@ -93,7 +95,7 @@ const AgentCard: React.FC<any> = ({ agent }) => {
               <div className='text-md font-[900] text-[#290F6A] '>{agent?.full_name}</div>
               <div className="w-full text-sm text-gray-500 dark:text-gray-400 break-words">{agent?.office?.name}</div>
               <div className='flex items-center gap-1'>
-                <Image src="/star2.svg" alt='Rating' width={15} height={15} objectFit="contain"/>
+                <Image src="/star2.svg" alt='Rating' width={15} height={15} />
                 <p className='text-[#FF8933] text-sm'>{agent?.agent_rating}</p>
                 <p className='text-sm text-gray-500'>/ {agent?.review_count} reviews</p>
               </div>

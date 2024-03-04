@@ -61,7 +61,7 @@ const Team: React.FC = () => {
   ];
 
   return (
-    <div className='bg-white w-full m-3 rounded-lg'>
+    <div className='bg-white w-full rounded-lg'>
       <div className='font-bold text-purple-700 mb-2 gap-5 mx-3 p-2'>Team</div>
       <div className='text-sm text-gray-500 mb-5 gap-5 mx-3 p-2 flex justify-between'>
         {/* Map through the property data and render PropertyCard for each */}

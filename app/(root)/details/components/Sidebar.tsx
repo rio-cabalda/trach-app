@@ -5,7 +5,6 @@ import { Avatar, Navbar, Sidebar } from 'flowbite-react';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiOutlineInformationCircle, HiOutlineMail, HiOutlineMinusSm, HiOutlinePlusSm, HiShoppingBag, HiStar, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 import { BiBuoy } from 'react-icons/bi';
 import { AgentDetailsProps } from '@/types';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Hero } from '@/components';
@@ -20,8 +19,10 @@ import Team from './Team';
 import Reviews from './Reviews';
 import Image from "next/image";
 import { Menu } from '@headlessui/react'
- 
-export default function SideBar() {
+import axios from "axios";
+import { fetchAgentProfile } from "@/utils/fetchApiData";
+
+export default function SideBar({searchParams}: { searchParams: any }) {
   const [agentDetails, setAgentDetails] = useState<any>({
     role: '',
     profile_name: '',
@@ -33,50 +34,56 @@ export default function SideBar() {
       href: '',
     },
   });
+  // const url = new URL(window.location.href);
+  const advertiser_id = "1633379";
+  const nrds_id = "150577018";
+  console.log("params",searchParams);
+
+
   useEffect(() => {
     const fetchData = async () => {
-      const url = new URL(window.location.href);
-      const advertiser_id = url.searchParams.get('advertiser_id');
-      const nrds_id = url.searchParams.get('nrds_id');
-      const options = {
-        method: 'GET',
-        url: 'https://realty-in-us.p.rapidapi.com/agents/get-profile',
-        params: {
-          advertiser_id: advertiser_id,
-          nrds_id: nrds_id,
-        },
-        headers: {
-          'X-RapidAPI-Key': 'ddeec46817msh45b32b0ecc215efp1732d0jsnf1ac0705742e',
-          'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com',
-        },
-      };
+    //   };
+    //   // console.log("advertiser_id ",advertiser_id);
+    //   // console.log("nrds_id ",nrds_id);
+    //   try {
+    //     const response = await axios.request(options);
+    //     const result = response.data;
+        
+        
+    //   } catch (error) {
+    //     console.error("Error fetching profile details",error);
+    //   }
 
-      try {
-        const response = await axios.request(options);
-        const {
-          role,
-          description,
-          profile_name,
-          fullname,
-          phone_list: { phone_1 },
-          bio,
-          photo,
-        } = response.data;
-        setAgentDetails({
-          role,
-          profile_name,
-          fullname,
-          phone_number: phone_1.number,
-          bio,
-          photo,
-          description,
-        });
-      } catch (error) {
-        console.error(error);
-      }
+      // try {
+      //   const response = await axios.request(options);
+      //   const {
+      //     role,
+      //     description,
+      //     profile_name,
+      //     fullname,
+      //     phone_list: { phone_1 },
+      //     bio,
+      //     photo,
+      //   } = response.data;
+      //   setAgentDetails({
+      //     role,
+      //     profile_name,
+      //     fullname,
+      //     phone_number: phone_1.number,
+      //     bio,
+      //     photo,
+      //     description,
+      //   });
+      // } catch (error) {
+      //   console.error(error);
+      // }
+      const result = await fetchAgentProfile(advertiser_id,nrds_id);
+      console.log("Result",result);
     };
 
     fetchData();
+    
+    
   }, []);
 
     
@@ -107,7 +114,7 @@ export default function SideBar() {
       
     const isListedOnOpen = true;
   return (
-  <div  className='flex'>
+  <div  className='flex gap-6'>
         {/* <Avatar img={agent?.photo?.href} 
           // status="away"
           statusPosition="top-left" className="w-10 h-10 object-contain" rounded > 
@@ -273,7 +280,7 @@ export default function SideBar() {
         </div>
       </div>
     </div>
-    <div className='flex-auto '>
+    <div className='flex flex-col gap-6'>
         <Header items={items} />
         <Overview content={agentDetails.bio}/>
         <Properties/>

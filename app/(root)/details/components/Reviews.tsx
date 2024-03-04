@@ -56,12 +56,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ photo, name, date, review, 
 </div>
 
 
-         
         <div className='p-2 gap-5    '>
-           
-        
-         
-           
           <h3 className='text-md font-bold my-2 text-purple-700'>{name}</h3>
            
              
@@ -116,7 +111,7 @@ const Reviews: React.FC = () => {
   ];
 
   return (
-    <div className='bg-white w-full m-3 rounded-lg'>
+    <div className='bg-white w-full rounded-lg'>
       <div className='font-bold text-purple-700 mb-2 gap-5 mx-3 p-2'>Team</div>
       <div className='text-sm text-gray-500 mb-5 gap-5 mx-3 p-2 flex justify-between flex-col'>
         {/* Map through the property data and render PropertyCard for each */}
