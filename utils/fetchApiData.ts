@@ -24,7 +24,7 @@ export const fetchLocation = async(input:string) => {
     }
 }
 
-export const fetchAgent = async(postalCode: string | undefined,limit: string | undefined) =>{
+export const fetchAgent = async(postalCode: string | undefined,limit: string | undefined, agentType: string | undefined) =>{
     const options = {
         method: 'GET',
         url: 'https://realty-in-us.p.rapidapi.com/agents/list',
@@ -44,7 +44,8 @@ export const fetchAgent = async(postalCode: string | undefined,limit: string | u
         try {
             const response = await axios.request(options);
             const result = response.data;
-            return result;
+            const filteredAgentsByType = result.agents.filter((agent:any) => agent.agent_type && agent.agent_type.includes(agentType));
+            return filteredAgentsByType;
             
         } catch (error) {
             console.error("Error in fetching api: ",error);
@@ -56,8 +57,8 @@ export const fetchAgentProfile = async(advertiser_id:string | null, nrds_id:stri
         method: 'GET',
         url: 'https://realty-in-us.p.rapidapi.com/agents/get-profile',
         params: {
-            advertiser_id: '1633379',
-            nrds_id: "150577018"
+            advertiser_id: advertiser_id,
+            nrds_id: nrds_id
         },
         headers: {
             'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',

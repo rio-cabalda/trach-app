@@ -19,8 +19,6 @@ interface AgentCardProps {
   agent: any;
 }
 
-
-
 function formatReview(value:string){
   if(value){
     if(value?.length < 2){
@@ -43,7 +41,7 @@ const formatMoney = (num:any) => {
   }}
 
 // Define the AgentCard component
-const AgentCard: React.FC<any> = ({ agent }) => {
+const AgentCard: React.FC<any> = ({ agent,agentType }) => {
   // Initialize state and router
   const [isOpen, setIsOpen] = useState(false);
   const [agentDetails, setAgentDetails] = useState<any>("");
@@ -52,8 +50,6 @@ const AgentCard: React.FC<any> = ({ agent }) => {
   const minPrice = formatMoney(agent?.recently_sold?.min);
   const maxPrice = formatMoney(agent?.recently_sold?.max)
   
-  // console.log("Formatted money", formatMoney(agent?.recently_sold?.min));
-  console.log(agent);
   // Handle view profile click
   const handleViewProfile = () => {
     router.push(`/details?advertiser_id=${agent?.advertiser_id}&nrds_id=${agent?.nrds_id}`);
@@ -65,10 +61,16 @@ const AgentCard: React.FC<any> = ({ agent }) => {
   // Render the AgentCard component
   return (
 <div className='w-[28rem] h-[26.4rem] shadow-sm flex flex-col p-5 justify-start bg-[#FFFFFF] hover:shadow-lg rounded-2xl border border-[#F6F6F6]'>
+
+
+    {/* Agent type for testing */}
+    <div className="flex items-center gap-1">agent type: { agent?.agent_type?.map((item:any, index:number)=>(<span key={item}>{item} {agent?.agent_type.length!==index+1&&" / "}</span>))}</div>
+
       {/* Header */}
       <div className='flex w-full h-[25px] items-center justify-between'>
         <div className='relative h-[25px] w-12'>
-          <Image loader={()=>agent?.office?.photo?.href} src={agent?.office?.photo?.href? agent?.office?.photo?.href: ""} fill={true} alt="Office Photo"  />
+          {agent.office.photo.href ? <Image loader={()=>agent?.office?.photo?.href} src={agent?.office?.photo?.href} fill={true} alt="Office Photo"  />: <div></div>}
+          
         </div>
         <div className='flex text-green-500 items-center gap-2 font-semibold text-sm'>
           <FaCircle size={13} /> Online
@@ -95,9 +97,11 @@ const AgentCard: React.FC<any> = ({ agent }) => {
               <div className='text-md font-[900] text-[#290F6A] '>{agent?.full_name}</div>
               <div className="w-full text-sm text-gray-500 dark:text-gray-400 break-words">{agent?.office?.name}</div>
               <div className='flex items-center gap-1'>
+                { agent.agent_rating && <>
                 <Image src="/star2.svg" alt='Rating' width={15} height={15} />
-                <p className='text-[#FF8933] text-sm'>{agent?.agent_rating}</p>
-                <p className='text-sm text-gray-500'>/ {agent?.review_count} reviews</p>
+                <p className='text-[#FF8933] text-sm'>{agent?.agent_rating} /</p> 
+                </>}
+                <p className='text-sm text-gray-500'>{agent?.review_count} reviews</p>
               </div>
           </div>
             {/* <div className=' mx-auto mb-3'>

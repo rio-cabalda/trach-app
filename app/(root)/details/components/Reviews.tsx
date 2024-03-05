@@ -2,6 +2,8 @@ import { Avatar } from 'flowbite-react';
 import React from 'react';
 import { HiArrowCircleDown, HiArrowRight, HiOutlineThumbDown, HiOutlineThumbUp, HiStar } from 'react-icons/hi';
 import { HiArrowLeft } from 'react-icons/hi2';
+import { HiOutlinePlusSm } from 'react-icons/hi';
+import Image from "next/image";
 
 // Define the type for the property card
 interface PropertyCardProps {
@@ -15,59 +17,37 @@ interface PropertyCardProps {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ photo, name, date, review, reviewHead, starCount }) => {
     return (
-        <div className='p-4 m-2 text-left justify-start rounded-md w-full flex flex-col group' style={{ borderBottom: '1px solid #ccc' }}>
+      <div className='flex flex-col border-b border-[#F6F6F6]'>
         <div className='text-yellow-300 flex'>
-  {[...Array(starCount)].map((_, index) => (
-    <HiStar key={index} />
-  ))}
-</div>
-        <p className='text-md font-bold text-purple-700 my-2'>
-            {reviewHead}
-        </p>
-       
-        {review}
-
-        <div className='flex justify-between'>
-  <div className='flex gap-5'>
-    <Avatar img={photo} rounded status="away" statusPosition="bottom-right" />
-    <div className='p-2 gap-5    '>
-           
-        
-         
-           
-           <h3 className='text-md font-bold my-2 text-purple-700'>{name}</h3>
-            
-              
-             <p>{date}</p>
-            
-           
-         </div>
-       
-
-  </div>
-  <div className='flex gap-2 items-center'>
-    <button className='text-gray-400 rounded-full p-2 outline outline-1 outline-gray-300 transition duration-300 ease-in-out hover:bg-green-400 hover:text-white transform hover:scale-105'>
-      <HiOutlineThumbUp />
-    </button>
-    <button className='text-gray-400 rounded-full p-2 outline outline-1 outline-gray-300 transition duration-300 ease-in-out hover:bg-red-400 hover:text-white transform hover:scale-105'>
-      <HiOutlineThumbDown />
-    </button>
-  </div>
-</div>
-
-
-        <div className='p-2 gap-5    '>
-          <h3 className='text-md font-bold my-2 text-purple-700'>{name}</h3>
-           
-             
-            <p>{date}</p>
-           
-          
+          {[...Array(starCount)].map((_, index) => (
+            <HiStar size={20} key={index} />
+          ))}
         </div>
+        <h4 className='text-md font-bold text-[#2D0173] my-4'>
+            {reviewHead}
+        </h4>
+        <p className="text-[#7D7D7D] text-base">{review}</p>
         
-     
-        
-        
+        <div className='flex justify-between my-4'>
+          <div className='flex items-center gap-5'>
+            {/* <Avatar img={photo} rounded status="away" statusPosition="bottom-right" /> */}
+            <div className="bg-gray-100 w-14 h-14 p-1 rounded-full flex items-center justify-center">
+              <Image src={photo} alt='review photo' width={50} height={50} objectFit="cover"/>
+            </div>
+            <div className='p-2 gap-1'>
+              <h3 className='text-base font-bold text-black'>{name}</h3>
+              <p>3 days ago...</p>
+            </div>
+          </div>
+          <div className='flex flex-1 justify-end gap-2 items-center'>
+            <button className='text-gray-400 rounded-full p-2 outline outline-1 outline-gray-300 transition duration-300 ease-in-out hover:bg-green-400 hover:text-white transform hover:scale-105'>
+              <HiOutlineThumbUp />
+            </button>
+            <button className='text-gray-400 rounded-full p-2 outline outline-1 outline-gray-300 transition duration-300 ease-in-out hover:bg-red-400 hover:text-white transform hover:scale-105'>
+              <HiOutlineThumbDown />
+            </button>
+          </div>
+        </div>
       </div>
     );
   };
@@ -111,22 +91,35 @@ const Reviews: React.FC = () => {
   ];
 
   return (
-    <div className='bg-white w-full rounded-lg'>
-      <div className='font-bold text-purple-700 mb-2 gap-5 mx-3 p-2'>Team</div>
-      <div className='text-sm text-gray-500 mb-5 gap-5 mx-3 p-2 flex justify-between flex-col'>
+    <div className='flex flex-col bg-white w-full rounded-2xl p-5 gap-6'>
+      <div className='flex items-center justify-between text-lg font-bold text-[#2D0173]'>
+        Reviews ({propertiesData.length})
+        <HiOutlinePlusSm size={25}/>
+      </div>
+      {/* Navigation */}
+      <div className='text-[#9300FF] font-[600] gap-16 flex border-b border-[#F6F6F6]'>
+        <p className="pb-4 border-b-2 border-b-[#9300FF] text-[#9300FF]">
+            TRACH Reviews (400)
+        </p>
+        <p className="pb-4 text-[#7D7D7D]">
+            Google Reviews (400)
+        </p>
+        <p className="pb-4 text-[#7D7D7D]">
+            Trustpilot Reviews (324)
+        </p>
+      </div>
+      <div className='flex flex-col gap-6'>
         {/* Map through the property data and render PropertyCard for each */}
         {propertiesData.map((property, index) => (
           <PropertyCard key={index} {...property} />
         ))}
       </div>
-      <div className='text-sm  text-purple-700 mb-2 gap-5 mx-3 p-2 flex flex-row'>
+      <button className='text-[16px] text-[#9300FF] gap-2 flex items-center'>
         <p>
-        View All Team Members
+        View All Properties
         </p>
-        <HiArrowRight/>
-       
-        
-        </div>
+        <HiArrowRight size={18}/>
+      </button>
     </div>
   );
 };

@@ -21,8 +21,9 @@ import Image from "next/image";
 import { Menu } from '@headlessui/react'
 import axios from "axios";
 import { fetchAgentProfile } from "@/utils/fetchApiData";
+import { profile } from "console";
 
-export default function SideBar({searchParams}: { searchParams: any }) {
+export default function SideBar({agentProfile}:{agentProfile:any}) {
   const [agentDetails, setAgentDetails] = useState<any>({
     role: '',
     profile_name: '',
@@ -35,56 +36,9 @@ export default function SideBar({searchParams}: { searchParams: any }) {
     },
   });
   // const url = new URL(window.location.href);
-  const advertiser_id = "1633379";
-  const nrds_id = "150577018";
-  console.log("params",searchParams);
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-    //   };
-    //   // console.log("advertiser_id ",advertiser_id);
-    //   // console.log("nrds_id ",nrds_id);
-    //   try {
-    //     const response = await axios.request(options);
-    //     const result = response.data;
-        
-        
-    //   } catch (error) {
-    //     console.error("Error fetching profile details",error);
-    //   }
-
-      // try {
-      //   const response = await axios.request(options);
-      //   const {
-      //     role,
-      //     description,
-      //     profile_name,
-      //     fullname,
-      //     phone_list: { phone_1 },
-      //     bio,
-      //     photo,
-      //   } = response.data;
-      //   setAgentDetails({
-      //     role,
-      //     profile_name,
-      //     fullname,
-      //     phone_number: phone_1.number,
-      //     bio,
-      //     photo,
-      //     description,
-      //   });
-      // } catch (error) {
-      //   console.error(error);
-      // }
-      const result = await fetchAgentProfile(advertiser_id,nrds_id);
-      console.log("Result",result);
-    };
-
-    fetchData();
-    
-    
-  }, []);
+  console.log("result",agentProfile);
+  
 
     
 
@@ -137,8 +91,9 @@ export default function SideBar({searchParams}: { searchParams: any }) {
             <Image src="/slack-logo.svg" alt='Slack Logo' width={85} height={25} />
           </div>
           <div className="w-full flex justify-center">
-            <div className="relative w-32 h-32 rounded-full">
-                <Image src="/margot.png" alt='Slack Logo' fill={true}/>
+            <div className="relative w-32 h-32 rounded-full overflow-hidden">
+              {agentProfile?.photo.href?  <Image loader={()=>agentProfile?.photo.href} src={agentProfile?.photo.href} alt='Slack Logo' fill={true} objectFit="cover"/>: <span className="w-full text-center">No photo</span>}
+               
                 <div className="absolute bottom-2 right-1 w-6 h-6 p-1 rounded-full bg-white">
                     <div className="w-full h-full rounded-full bg-green-500"></div>
                 </div>
@@ -149,22 +104,25 @@ export default function SideBar({searchParams}: { searchParams: any }) {
               Slack
             </div>
             <div className='w-full text-center font-semibold text-2xl text-[#290F6A]'>
-              Verlie Borer
+              {agentProfile.fullname}
             </div>
           </div>
           <div className="w-full flex gap-2 items-center justify-center mt-2">
             <div className="flex">
+              {Array.from({ length: agentProfile?.ratings?.average_rating}, () => null).map((item,index)=>(
+                <IoIosStar key={index} size={19} className="text-[#FF8933]"/>
+              ))}
+              {/* <IoIosStar size={19} className="text-[#FF8933]"/>
               <IoIosStar size={19} className="text-[#FF8933]"/>
               <IoIosStar size={19} className="text-[#FF8933]"/>
               <IoIosStar size={19} className="text-[#FF8933]"/>
-              <IoIosStar size={19} className="text-[#FF8933]"/>
-              <IoIosStar size={19} className="text-[#FF8933]"/>
+              <IoIosStar size={19} className="text-[#FF8933]"/> */}
             </div>
-            <p className="text-sm text-[#7D7D7D] font-[500]">3.5k reviews</p>
+            <p className="text-sm text-[#7D7D7D] font-[500]">{agentProfile?.ratings?.average_rating} review(s)</p>
           </div>
           
           <div className='w-full mt-10'>
-            <button className='w-full bg-purple-500 py-3 text-white rounded-lg px-8 flex gap-2 hover:bg-purple-700  '>
+            <button className='w-full bg-purple-500 py-3 text-white rounded-lg px-8 flex justify-center gap-2 hover:bg-purple-700  '>
             <HiOutlineMail size={24}/>Send a message</button>
           </div>
         </div>
@@ -280,9 +238,9 @@ export default function SideBar({searchParams}: { searchParams: any }) {
         </div>
       </div>
     </div>
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-6 overflow-y-auto'>
         <Header items={items} />
-        <Overview content={agentDetails.bio}/>
+        <Overview content={agentProfile.bio}/>
         <Properties/>
         <Media/>
         <Team/>

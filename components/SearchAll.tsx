@@ -87,7 +87,7 @@ const SearchAll = () => {
     try {
       if(selectedLocationData){
         // await updateSearchParams(type, location.toLowerCase());
-        router.push(`/agent?agentType=${agentType}&location=${location}&postalcode=${selectedLocationData.fips}&limit=20`);
+        router.push(`/agent?agentType=${agentType}&location=${location}&postalcode=${selectedLocationData.fips}&limit=50`);
       }
     } catch (error) {
       console.error('Error updating search parameters:', error);
@@ -205,7 +205,7 @@ return (
           </div>*/}
           <div className='justify-end gap-4 flex mr-6'>
             <button disabled={!selectedLocationData} onClick={handleSearchSell} className="w-[99px] h-[51px] py-4 px-6 rounded-md bg-[#7100C3] text-white text-base leading-[19.36px] font-[500] font hover:bg-purple-600 outline-none disabled:bg-purple-400" >To Sell</button>
-            <button disabled={!selectedLocationData} onClick={handleSearchRent} className="w-[107px] h-[51px] py-4 px-6 rounded-md bg-[#8C3AFF] text-white text-base leading-[19.36px] font-[500] font hover:bg-purple-600 outline-none disabled:bg-purple-400" >To Rent</button>
+            <button disabled={!selectedLocationData} onClick={handleSearchRent} className="w-[107px] h-[51px] py-4 px-6 rounded-md bg-[#8C3AFF] text-white text-base leading-[19.36px] font-[500] font hover:bg-purple-600 outline-none disabled:bg-purple-400" >To Buy</button>
 
             {/* <SearchButton title="For Rent" onClick={handleSearchRent} className={'rounded-md bg-purple-500 text-white hover:bg-transparent hover:text-purple-500 hover:outline-purple-500 hover:outline-1  outline-none '} >To Rent</SearchButton> */}
           </div>
