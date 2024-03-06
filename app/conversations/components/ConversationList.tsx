@@ -15,7 +15,7 @@ import GroupChatModal from "./GroupChatModal";
 
 import { FullConversationType } from "@/types";
 import ConversationBox from "./ConversationBox";
-import Input from "@/app/message/components/inputs/Input";
+import Input from "@/app/login/components/inputs/Input";
 import { RegisterOptions, FieldValues, UseFormRegisterReturn } from "react-hook-form";
 import { Label, TextInput } from "flowbite-react";
 
