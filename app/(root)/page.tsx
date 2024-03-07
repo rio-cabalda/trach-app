@@ -12,14 +12,14 @@ export default async function Home({ searchParams }: HomeProps) {
   // const isDataEmpty = !Array.isArray(allAgents) || allAgents.length < 1 || !allAgents;
 
   return (
-    <main className='overflow-hidden'>
+    <main className='overflow-hidden bg-white'>
       <Hero />
       <Finding/>
       <WhyChoose/>
-      <div className='mt-12 padding-x padding-y max-width' id='discover'>
-        <div className='flex-1 mx-auto max-w-lg text-center'>
-          <p className="text-[#8C3AFF] font-semibold">Agent Insights</p>
-          <h1 className='text-3xl font-extrabold text-[#2D0173]'>Unfiltered User Reviews - Discover What Our Happy Clients Say!</h1>
+      <div className='my-20 padding-x padding-y max-width' id='discover bg-[#F8F8F8]'>
+        <div className='flex-1 mx-auto text-center max-w-[748px]'>
+          <p className="text-[#8C3AFF] font-semibold text-lg">Agent Insights</p>
+          <h1 className='w-full text-4xl font-extrabold text-[#2D0173] mt-5'>Unfiltered User Reviews - Discover What Our Happy Clients Say!</h1>
         </div>
       </div>
       <AsSeenIn/>

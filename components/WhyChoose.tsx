@@ -5,146 +5,74 @@ import Image from 'next/image';
 
 const WhyChoose = () => {
   return (
-    
-
-<section className="bg-white dark:bg-gray-900 grid md:grid-cols-2  hero bg-center bg-no-repeat  w-full  md:bg-cover">
- 
-        <div className='w-1/4'>
-        <Image src={"/slack.png"} width={850} height={520} alt='logo'/>  
-        </div>
-        <div className='w-3/4'>
-        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-        <div className="w-3/4">
-           <h1 className='text-[#8C3AFF]'>
+    <section className="py-20 bg-white dark:bg-gray-900 flex gap-20 ">
+      <div className='hidden lg:flex h-fit'>
+      <Image src={"/slack.png"} width={402} height={585} alt='logo'/>  
+      </div>
+      <div className="h-full max-w-screen-lg px-4">
+        <div className="h-full max-w-[748px]">
+          <h3 className='text-[#8C3AFF] text-lg font-medium'>
             WHY CHOOSE TRACH?
-           </h1>
-            <h1 className="text-[#2D0173] dark:text-white text-3xl md:text-5xl font-extrabold mb-2 ">A robust, user-friendly search engine and comparison site to empower you with the information you need to make.</h1>
-           
+          </h3>
+          <h1 className="text-[#2D0173] dark:text-white text-3xl md:text-4xl font-bold leading-[40px]  md:leading-[50px] ">A robust, user-friendly search engine and comparison site to empower you with the information you need to make.</h1>
         </div>
-        <div className="grid md:grid-cols-2">
-    
-    
-
-
-        <div className=" rounded-lg  md:p-8 grid md:grid-cols-12">
-  {/* First column */}
-  <div className="col-span-3 flex flex-col items-center">
-    {/* First row in the first column */}
-    <div className="mb-2">
-      <Image src={"/database.svg"} width={40} height={20} alt='logo' />
-    </div>
-    {/* Second row in the first column (empty) */}
-    <div>
-      
-    </div>
-  </div>
-  {/* Second column */}
-  <div className="col-span-9 flex flex-col">
-    {/* First row in the second column */}
-    <div>
-      <h1 className="text-[#2D0173] dark:text-white text-xl font-extrabold ">
-        Comprehensive Database
-      </h1>
-    </div>
-    {/* Second row in the second column */}
-    <div>
-      <p className="text-md font-normal text-gray-500 dark:text-gray-400 mt-5 ">
-        Our extensive database comprises a vast selection of local real estate agents. You'll have access to a wide range of experts.
-      </p>
-    </div>
-  </div>
-</div>
-
-
-<div className=" rounded-lg  md:p-8 grid md:grid-cols-12">
-  {/* First column */}
-  <div className="col-span-3 flex flex-col items-center">
-    {/* First row in the first column */}
-    <div className="mb-2">
-      <Image src={"/metric.svg"} width={40} height={20} alt='logo' />
-    </div>
-    {/* Second row in the first column (empty) */}
-    <div></div>
-  </div>
-  {/* Second column */}
-  <div className="col-span-9 flex flex-col">
-    {/* First row in the second column */}
-    <div>
-      <h1 className="text-[#2D0173] dark:text-white text-xl font-extrabold ">
-      Transparent metric
-      </h1>
-    </div>
-    {/* Second row in the second column */}
-    <div>
-      <p className="text-md font-normal text-gray-500 dark:text-gray-400 mt-5 ">
-      From recent sales records to response times, performance indicators to help you evaluate agents effectively.
-      </p>
-    </div>
-  </div>
-</div>
-
-
-
-
-<div className=" rounded-lg  md:p-8 grid md:grid-cols-12">
-  {/* First column */}
-  <div className="col-span-3 flex flex-col items-center">
-    {/* First row in the first column */}
-    <div className="mb-2">
-      <Image src={"/star.svg"} width={40} height={20} alt='logo' />
-    </div>
-    {/* Second row in the first column (empty) */}
-    <div></div>
-  </div>
-  {/* Second column */}
-  <div className="col-span-9 flex flex-col">
-    {/* First row in the second column */}
-    <div>
-      <h1 className="text-[#2D0173] dark:text-white text-xl font-extrabold ">
-      Authentic user reviews
-      </h1>
-    </div>
-    {/* Second row in the second column */}
-    <div>
-      <p className="text-md font-normal text-gray-500 dark:text-gray-400 mt-5 ">
-        TRACH features real reviews and ratings from previous clients, giving you valuable insights into each agent's performance.
-      </p>
-    </div>
-  </div>
-</div>
-<div className=" rounded-lg  md:p-8 grid md:grid-cols-12">
-  {/* First column */}
-  <div className="col-span-3 flex flex-col items-center">
-    {/* First row in the first column */}
-    <div className="mb-2">
-      <Image src={"/check.svg"} width={40} height={20} alt='logo' />
-    </div>
-    {/* Second row in the first column (empty) */}
-    <div></div>
-  </div>
-  {/* Second column */}
-  <div className="col-span-9 flex flex-col">
-    {/* First row in the second column */}
-    <div>
-      <h1 className="text-[#2D0173] dark:text-white text-xl font-extrabold ">
-      Privacy and security
-      </h1>
-    </div>
-    {/* Second row in the second column */}
-    <div>
-      <p className="text-md font-normal text-gray-500 dark:text-gray-400 mt-5 ">
-      TRACH adheres to the highest industry standards, ensuring that your information remains safe and confidential.
-      </p>
-    </div>
-  </div>
-</div>
+        <div className="grid grid-cols-2 mt-10 h-full gap-11 lg:gap-[100px]">
+            <div className="flex gap-4 max-w-[375px]">
+                  <div className="hidden md:block w-20 h-20">
+                    <Image src={"/database.svg"} width={32} height={32} alt='logo' objectFit="cover" />
+                  </div>
+                  <div>
+                    <h1 className="text-[#2D0173] dark:text-white text-[22px]  font-bold ">
+                      Comprehensive Database
+                    </h1>
+                    <p className="text-base font-normal text-gray-500 dark:text-gray-400 mt-2 ">
+                      Our extensive database comprises a vast selection of local real estate agents. You'll have access to a wide range of experts.
+                    </p>
+                  </div>
+            </div>
+            <div className="flex gap-4 max-w-[375px]">
+                  <div className="hidden md:block w-20 h-20">
+                    <Image src={"/metric.svg"} width={32} height={32} alt='logo' objectFit="cover" />
+                  </div>
+                  <div>
+                    <h1 className="text-[#2D0173] dark:text-white text-[22px]  font-bold ">
+                      Transparent metric
+                    </h1>
+                    <p className="text-base font-normal text-gray-500 dark:text-gray-400 mt-2 ">
+                    From recent sales records to response times, performance indicators to help you evaluate agents effectively.
+                    </p>
+                  </div>
+            </div>
+            <div className="flex gap-4 max-w-[375px]">
+                  <div className="hidden md:block w-20 h-20">
+                    <Image src={"/star.svg"} width={32} height={32} alt='logo' objectFit="cover" />
+                  </div>
+                  <div>
+                    <h1 className="text-[#2D0173] dark:text-white text-[22px]  font-bold ">
+                      Authentic user reviews
+                    </h1>
+                    <p className="text-base font-normal text-gray-500 dark:text-gray-400 mt-2 ">
+                    TRACH features real reviews and ratings from previous clients, giving you valuable insights into each agent's performance.
+                    </p>
+                  </div>
+            </div>
+            <div className="flex gap-4 max-w-[375px]">
+                  <div className="hidden md:block w-20 h-20">
+                    <Image src={"/check.svg"} width={32} height={32} alt='logo' objectFit="cover" />
+                  </div>
+                  <div>
+                    <h1 className="text-[#2D0173] dark:text-white text-[22px]  font-bold ">
+                      Privacy and security
+                    </h1>
+                    <p className="text-base font-normal text-gray-500 dark:text-gray-400 mt-2 ">
+                    TRACH adheres to the highest industry standards, ensuring that your information remains safe and confidential.
+                    </p>
+                  </div>
+            </div>
         </div>
-    </div>
-        </div>
-   
-    
-</section>
+      </div>
 
+    </section>
   )
 }
 
