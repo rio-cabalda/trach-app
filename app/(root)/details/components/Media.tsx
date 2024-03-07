@@ -50,24 +50,24 @@ const Media: React.FC = () => {
         <p className="pb-4 border-b-2 border-b-[#9300FF] text-[#9300FF]">
             All
             <span>
-                (500)
+                (6)
             </span>
         </p>
         <p className="pb-4 text-[#7D7D7D]">
             Photos
             <span>
-                (400)
+                (6)
             </span>
         </p>
         <p className="pb-4 text-[#7D7D7D]">
             Videos
             <span>
-                (400)
+                (0)
             </span>
         </p>
       </div>
       {/* <div className='grid grid-cols-3 gap-6 flex-wrap'> */}
-      <div className='flex gap-6 flex-wrap justify-center'>
+      <div className='flex gap-6 flex-wrap'>
         {/* Map through the property data and render PropertyCard for each */}
         {propertiesData.map((property, index) => (
           <PropertyCard key={index} {...property} />

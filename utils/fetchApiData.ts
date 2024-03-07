@@ -75,3 +75,27 @@ export const fetchAgentProfile = async(advertiser_id:string | null, nrds_id:stri
             throw error; // Re-throw the error
         }
 }
+
+export const fetchAgentReviews = async(advertiser_id:string | null) => {
+    const options = {
+        method: 'GET',
+        url: 'https://realty-in-us.p.rapidapi.com/agents/get-reviews',
+        params: {
+            advertiser_id
+        },
+        headers: {
+            'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',
+            'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
+        }
+        };
+        
+        try {
+            const response = await axios.request(options);
+            const result = response.data;
+            return result;
+        } catch (error) {
+            console.error("Error in fetching reviews",error);
+        }
+}
+
+

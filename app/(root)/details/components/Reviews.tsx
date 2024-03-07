@@ -3,40 +3,44 @@ import React from 'react';
 import { HiArrowCircleDown, HiArrowRight, HiOutlineThumbDown, HiOutlineThumbUp, HiStar } from 'react-icons/hi';
 import { HiArrowLeft } from 'react-icons/hi2';
 import { HiOutlinePlusSm } from 'react-icons/hi';
+import { FaRegUser } from "react-icons/fa";
 import Image from "next/image";
+import { getDateDifference } from "@/utils/functions";
 
 // Define the type for the property card
 interface PropertyCardProps {
-  photo: string;
-  name: string;
-  date: string;
-  review: string;
-  reviewHead: string;
-  starCount:Number;
+  comment: string;
+  rating: number;
+  display_name: string;
+  year: string;
+  location: string;
+  describe_yourself:string;
+  started_timestamp:string;
 }
 
-const PropertyCard: React.FC<PropertyCardProps> = ({ photo, name, date, review, reviewHead, starCount }) => {
+const PropertyCard: React.FC<PropertyCardProps> = ({ comment, rating, display_name, year, location, describe_yourself, started_timestamp}) => {
     return (
       <div className='flex flex-col border-b border-[#F6F6F6]'>
         <div className='text-yellow-300 flex'>
-          {[...Array(starCount)].map((_, index) => (
+          {[...Array(rating)].map((_, index) => (
             <HiStar size={20} key={index} />
           ))}
         </div>
         <h4 className='text-md font-bold text-[#2D0173] my-4'>
-            {reviewHead}
+            {describe_yourself}
         </h4>
-        <p className="text-[#7D7D7D] text-base">{review}</p>
+        <p className="text-[#7D7D7D] text-base">{comment}</p>
         
         <div className='flex justify-between my-4'>
           <div className='flex items-center gap-5'>
             {/* <Avatar img={photo} rounded status="away" statusPosition="bottom-right" /> */}
-            <div className="bg-gray-100 w-14 h-14 p-1 rounded-full flex items-center justify-center">
-              <Image src={photo} alt='review photo' width={50} height={50} objectFit="cover"/>
+            <div className="bg-gray-100 w-14 h-14 p-1 rounded-full flex items-center justify-center overflow-hidden">
+              {/* <Image src={photo} alt='review photo' width={50} height={50} objectFit="cover"/> */}
+              <FaRegUser size={20} />
             </div>
             <div className='p-2 gap-1'>
-              <h3 className='text-base font-bold text-black'>{name}</h3>
-              <p>3 days ago...</p>
+              <h3 className='text-base font-bold text-black'>{display_name}</h3>
+              <p>{getDateDifference(started_timestamp)}</p>
             </div>
           </div>
           <div className='flex flex-1 justify-end gap-2 items-center'>
@@ -51,66 +55,30 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ photo, name, date, review, 
       </div>
     );
   };
-const Reviews: React.FC = () => {
-  // Sample data for property cards
-  const propertiesData: PropertyCardProps[] = [
-    {
-      photo: "/hero.png",
-      name: 'Person 1',
-      date: 'date for person 1',
-      review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda amet cupiditate esse ut similique itaque repellendus recusandae soluta dolorum sunt voluptas officiis at ad, error praesentium cumque animi beatae placeat',
-      reviewHead:"Highly recommended!",
-      starCount:1
+const Reviews = ({agentReviews}:{agentReviews:any}) => {
   
-    },
-    
-    {
-        photo: "/hero.png",
-        name: 'Person 1',
-        date: 'date for person 1',
-        review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda amet cupiditate esse ut similique itaque repellendus recusandae soluta dolorum sunt voluptas officiis at ad, error praesentium cumque animi beatae placeat',
-        reviewHead:"Highly recommended!",
-        starCount:2
-      },
-      {
-        photo: "/hero.png",
-        name: 'Person 1',
-        date: 'date for person 1',
-        review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda amet cupiditate esse ut similique itaque repellendus recusandae soluta dolorum sunt voluptas officiis at ad, error praesentium cumque animi beatae placeat',
-        reviewHead:"Highly recommended!",
-        starCount:3
-      },
-      {
-        photo: "/hero.png",
-        name: 'Person 1',
-        date: 'date for person 1',
-        review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda amet cupiditate esse ut similique itaque repellendus recusandae soluta dolorum sunt voluptas officiis at ad, error praesentium cumque animi beatae placeat',
-        reviewHead:"Highly recommended!",
-        starCount:5
-      },
-  ];
 
   return (
     <div className='flex flex-col bg-white w-full rounded-2xl p-5 gap-6'>
       <div className='flex items-center justify-between text-lg font-bold text-[#2D0173]'>
-        Reviews ({propertiesData.length})
+        Reviews ({agentReviews.length})
         <HiOutlinePlusSm size={25}/>
       </div>
       {/* Navigation */}
       <div className='text-[#9300FF] font-[600] gap-16 flex border-b border-[#F6F6F6]'>
         <p className="pb-4 border-b-2 border-b-[#9300FF] text-[#9300FF]">
-            TRACH Reviews (400)
+            TRACH Reviews ({agentReviews.length})
         </p>
         <p className="pb-4 text-[#7D7D7D]">
-            Google Reviews (400)
+            Google Reviews (0)
         </p>
         <p className="pb-4 text-[#7D7D7D]">
-            Trustpilot Reviews (324)
+            Trustpilot Reviews (0)
         </p>
       </div>
       <div className='flex flex-col gap-6'>
         {/* Map through the property data and render PropertyCard for each */}
-        {propertiesData.map((property, index) => (
+        {agentReviews.map((property:any, index:number) => (
           <PropertyCard key={index} {...property} />
         ))}
       </div>

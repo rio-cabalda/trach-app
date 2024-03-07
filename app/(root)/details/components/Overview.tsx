@@ -14,7 +14,7 @@ const Overview: React.FC<OverviewProps> = ({ content }) => {
       </div>
       
       <div className='text-sm text-gray-500 mt-4'>
-        <p>{content || 'Lorem Ipsum '.repeat(50)}</p>
+        <p>{content || "Bio not available"}</p>
       </div>
     </div>
   );

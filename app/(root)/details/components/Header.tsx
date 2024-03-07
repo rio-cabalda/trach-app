@@ -7,15 +7,15 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 
 // Define the type for the items prop
 interface HeaderProps {
-  items: {
-    title: string;
-    description: string;
-    icon: React.ReactNode; // You can adjust the type based on your actual use case
-  }[];
+  searchParams: any;
 }
 
 // Use the defined type for the props
-const Header: React.FC<HeaderProps> = ({ items }) => {
+const Header: React.FC<HeaderProps> = ({ searchParams }) => {
+  const {minPrice, maxPrice, avgSaleTime, recentSold} = searchParams;
+  console.log("router in header", searchParams);
+  
+  // const { advertiser_id, nrds_id } = router.queryParams ;
   return (
     <div className='flex items-center justify-between bg-white w-full rounded-2xl p-5 overflow-hidden'>
       {/* <div className='flex justify-between mx-auto gap-10 p-5 items-center text-center'>
@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ items }) => {
       <div className='flex relative w-fit gap-2 text-lg'>
         <LiaMoneyBillWaveSolid size={16} className="text-gray-800 mt-1.5"/>
         <div className="flex flex-col">
-        <div className='text-md font-bold text-[#2D0173]'>0.75% or &#36;25000</div>
+        <div className='text-md font-bold text-[#2D0173]'>0.75% or &#36;2500</div>
           <div className="font-normal text-gray-500 text-sm">Fees</div>
         </div>
       </div> 
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ items }) => {
       <div className='flex relative w-fit gap-2 text-lg'>
         <PiCurrencyDollarSimple size={16} className="text-gray-800 mt-1.5"/>
         <div className="flex flex-col">
-          <div className='text-md font-bold text-[#2D0173]'>&#36;300k - &#36;350k</div>
+          <div className='text-md font-bold text-[#2D0173]'>&#36;{minPrice} - &#36;{maxPrice}</div>
           <div className="font-normal text-gray-500 text-sm">Price range</div>
         </div>
       </div> 
@@ -61,10 +61,22 @@ const Header: React.FC<HeaderProps> = ({ items }) => {
       <div className='flex relative w-fit gap-2 text-lg'>
         <FaRegCalendarCheck size={16} className="text-gray-800 mt-1.5"/>
         <div className="flex flex-col">
-          <div className='text-md font-bold text-[#2D0173]'>18 sold</div>
+          <div className='text-md font-bold text-[#2D0173]'>{avgSaleTime}</div>
           <div className="font-normal text-gray-500 text-sm">Avg sale time</div>
         </div>
       </div> 
+
+      {/* Line Separator */}
+      <div className="border-l-2 h-10 w-2 border-[#F6F6F6]"></div>
+
+      <div className='flex relative w-fit gap-2 text-lg'>
+        <FaRegCalendarCheck size={16} className="text-gray-800 mt-1.5"/>
+        <div className="flex flex-col">
+          <div className='text-md font-bold text-[#2D0173]'>{recentSold} sold</div>
+          <div className="font-normal text-gray-500 text-sm">Sold last month</div>
+        </div>
+      </div> 
+
       {/* Line Separator */}
       <div className="border-l-2 h-10 w-2 border-[#F6F6F6]"></div>
 

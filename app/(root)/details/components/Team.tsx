@@ -63,7 +63,7 @@ const Team: React.FC = () => {
         Team (10)
         <HiOutlinePlusSm size={25}/>
       </div>
-      <div className='flex gap-5 flex-wrap justify-center'>
+      <div className='flex gap-5 flex-wrap'>
         {/* Map through the property data and render PropertyCard for each */}
         {propertiesData.map((property, index) => (
           <PropertyCard key={index} {...property} />

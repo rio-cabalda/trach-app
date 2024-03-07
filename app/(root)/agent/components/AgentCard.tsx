@@ -13,7 +13,8 @@ import { LiaMoneyBillWaveSolid } from "react-icons/lia";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { IoMdTime } from "react-icons/io";
 import { BsCalendar4Event } from "react-icons/bs";
-
+import { formatMoney, truncateText } from "@/utils/functions";
+import axios from "axios";
 // Define the AgentCardProps interface
 interface AgentCardProps {
   agent: any;
@@ -30,15 +31,7 @@ function formatReview(value:string){
   }
 }
 
-const formatMoney = (num:any) => {
-  
-  if (num < 1000) {
-    return num.toString();
-  } else if (num < 1000000) {
-    return (num / 1000).toFixed(0) + 'k';
-  } else {
-    return (num / 1000000).toFixed(0) + 'M';
-  }}
+
 
 // Define the AgentCard component
 const AgentCard: React.FC<any> = ({ agent,agentType }) => {
@@ -46,13 +39,49 @@ const AgentCard: React.FC<any> = ({ agent,agentType }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [agentDetails, setAgentDetails] = useState<any>("");
   const router = useRouter();
+  const {} = agent;
 
+  useEffect(()=>{
+    // const fetchListingData = async() => {
+    //   const options = {
+    //     method: 'GET',
+    //     url: 'https://realty-in-us.p.rapidapi.com/agents/get-listings',
+    //     params: {
+    //       fulfillment_id: '1633379',
+    //       id: agent.id,
+    //       agent_id: agent.id,
+    //       type: 'all',
+    //       page: '1'
+    //     },
+    //     headers: {
+    //       'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',
+    //       'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
+    //     }
+    //   };
+      
+    //   try {
+    //     const response = await axios.request(options);
+    //     console.log("Listing data",response.data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+    // fetchListingData();
+  },[]);
+  
+  console.log("agent: ", agent);
+  
+  
   const minPrice = formatMoney(agent?.recently_sold?.min);
   const maxPrice = formatMoney(agent?.recently_sold?.max)
   
+  const headerData = { minPrice: minPrice, maxPrice:maxPrice, avgSaleTime: '4 weeks', recentSold:`${agent?.recently_sold?.count? agent?.recently_sold?.count: "10"}`};
+  const queryParams = new URLSearchParams(headerData).toString();
+
   // Handle view profile click
   const handleViewProfile = () => {
-    router.push(`/details?advertiser_id=${agent?.advertiser_id}&nrds_id=${agent?.nrds_id}`);
+    router.push(`/details?advertiser_id=${agent?.advertiser_id}&nrds_id=${agent?.nrds_id}&${queryParams}`);
+
   };
 
   if(!agent){
@@ -62,9 +91,6 @@ const AgentCard: React.FC<any> = ({ agent,agentType }) => {
   return (
 <div className='w-[28rem] h-[26.4rem] shadow-sm flex flex-col p-5 justify-start bg-[#FFFFFF] hover:shadow-lg rounded-2xl border border-[#F6F6F6]'>
 
-
-    {/* Agent type for testing */}
-    <div className="flex items-center gap-1">agent type: { agent?.agent_type?.map((item:any, index:number)=>(<span key={item}>{item} {agent?.agent_type.length!==index+1&&" / "}</span>))}</div>
 
       {/* Header */}
       <div className='flex w-full h-[25px] items-center justify-between'>
@@ -78,28 +104,31 @@ const AgentCard: React.FC<any> = ({ agent,agentType }) => {
       </div>
 
       {/* Body - Card details and image */}
-      <div className='w-full p-4 flex flex-col bg-[#F8F9FF] rounded-2xl mt-5'>
-        <div className='w-full flex text-left gap-5 '>
+      <div className='w-full h-[114px] p-4 flex flex-col bg-[#F8F9FF] rounded-2xl mt-5'>
+        <div className='w-full h-full flex text-left gap-5 '>
           {/* <Avatar img={agent?.photo?.href} 
           // status="away"
           statusPosition="top-left" className="w-10 h-10 object-contain" rounded > 
           </Avatar> */}
           <div>
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border bg-gray-600">
-              <Image className="absolute origin-center top-0 -translate-y-2"
+            <div className="relative w-[53px] h-[53px] rounded-full overflow-hidden">
+              <Image className="absolute origin-center top-0 -translate-y-3"
               loader={()=>agent?.photo?.href} src={agent?.photo?.href? agent?.photo?.href: ""}
-              width={40} height={40} 
-              alt="Agent Photo"/>
+              width={60} height={60} 
+              alt="Photo"/>
             </div>
           </div>
 
-          <div className="w-full flex gap-3 flex-col justify-between font-medium dark:text-white">
-              <div className='text-md font-[900] text-[#290F6A] '>{agent?.full_name}</div>
-              <div className="w-full text-sm text-gray-500 dark:text-gray-400 break-words">{agent?.office?.name}</div>
+          <div className="w-full h-full flex flex-col gap-[10px] font-medium just">
+              <div className='text-md font-[900] text-[#290F6A] '>{agent?.person_name}</div>
+              <div className="w-full flex items-start text-sm text-gray-500 dark:text-gray-400 break-words">{truncateText(agent?.office?.name|| "No office declared",40)}</div>
               <div className='flex items-center gap-1'>
-                { agent.agent_rating && <>
+                { agent.agent_rating? <>
                 <Image src="/star2.svg" alt='Rating' width={15} height={15} />
                 <p className='text-[#FF8933] text-sm'>{agent?.agent_rating} /</p> 
+                </>:<>
+                <Image src="/star2.svg" alt='Rating' width={15} height={15} />
+                <p className='text-[#FF8933] text-sm'>0 /</p> 
                 </>}
                 <p className='text-sm text-gray-500'>{agent?.review_count} reviews</p>
               </div>

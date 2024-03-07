@@ -67,10 +67,10 @@ const Properties: React.FC = () => {
   return (
     <div className='flex flex-col bg-white w-full rounded-2xl p-5 gap-4'>
       <div className='flex items-center justify-between text-lg font-bold text-[#2D0173]'>
-        Properties (8)
+        Properties (3)
         <HiOutlinePlusSm size={25}/>
       </div>
-      <div className='text-sm text-gray-500 mb-5 gap-5 flex justify-between'>
+      <div className='text-sm flex text-gray-500 mb-5 gap-5 '>
         {/* Map through the property data and render PropertyCard for each */}
         {propertiesData.map((property, index) => (
           <PropertyCard key={index} {...property} />
