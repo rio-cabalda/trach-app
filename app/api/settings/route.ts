@@ -12,7 +12,14 @@ export async function POST(
     const {
       name,
       image,
-    } = body;
+      role,
+      contactNumber,
+      address,
+      email,
+      bio,
+      services,
+      website,
+    } = body; 
 
     if (!currentUser?.id) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -24,7 +31,14 @@ export async function POST(
       },
       data: {
         image: image,
-        name: name
+        name: name,
+        role,
+        contactNumber,
+        address,
+        email,
+        bio,
+        services,
+        website,
       },
     });
 

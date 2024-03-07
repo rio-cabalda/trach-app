@@ -11,11 +11,12 @@ import { find, uniq } from 'lodash';
 
 import useConversation from "@/app/hooks/useConversation";
 import { pusherClient } from "@/app/libs/pusher";
-import GroupChatModal from "./GroupChatModal";
+
 
 import { FullConversationType } from "@/types";
 import ConversationBox from "./ConversationBox";
 import { Label, TextInput } from "flowbite-react";
+import GroupChatModal from "./GroupChatModal";
 
 interface ConversationListProps {
   initialItems: FullConversationType[];

@@ -64,7 +64,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
-      router.push('/users');
+      router.push('/profile');
     }
   }, [session?.status, router]);
 
@@ -123,7 +123,7 @@ const AuthForm = () => {
           }
           if (callback?.ok && !callback?.error) {
             toast.success('Successfully logged in!');
-            router.push('/users');
+            router.push('/profile');
           }
         })
         .finally(() => setIsLoading(false));
@@ -139,7 +139,7 @@ const AuthForm = () => {
         }
         if (callback?.ok && !callback?.error) {
           toast.success('Logged in');
-          router.push('/users');
+          router.push('/profile');
         }
       })
       .finally(() => setIsLoading(false));
