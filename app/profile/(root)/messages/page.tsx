@@ -1,22 +1,32 @@
- "use client"
+ 
 
 import clsx from "clsx";
 
  
-import EmptyState from "@/components/EmptyState";
+ 
 import useConversation from "@/app/hooks/useConversation";
+import ConversationList from "./components/ConversationList";
+import getConversations from "@/app/actions/getConversations";
+import getUsers from "@/app/actions/getUsers";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import EmptyState2 from "../../components/EmptyState2";
 
-const Home = () => {
-  const { isOpen } = useConversation();
+export default async function Home ({
+  children
+}: {
+  children: React.ReactNode,
+}) {
+  const conversations = await getConversations();
+  const users = await getUsers();
+  const currentUser = await getCurrentUser()
+ 
 
   return (
-    <div className={clsx(
-      'lg:pl-80 h-full lg:block', 
-      isOpen ? 'block' : 'hidden'
-    )}>
-      <EmptyState />
+    <div >
+     
+      <EmptyState2 />
     </div>
   )
 }
 
-export default Home;
+ 

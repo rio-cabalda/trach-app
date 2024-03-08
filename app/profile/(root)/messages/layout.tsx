@@ -23,16 +23,16 @@ export default async function ConversationsLayout({
    
     <>
     
-    <SideBar>
-      <div className="h-full">
-        <ConversationList 
+   
+      <div className="h-full flex">
+      <ConversationList 
           users={users} 
-          // title="Messages" 
+           
           initialItems={conversations}
         />
         {children}
       </div>
-    </SideBar>
+    
     </>
   );
 }

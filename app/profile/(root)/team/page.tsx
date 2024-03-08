@@ -1,9 +1,25 @@
-import React from 'react'
 
-const page = () => {
+import React from 'react'
+import EmptyState2 from '../../components/EmptyState2'
+ 
+
+
+
+ 
+
+
+const Users= () => {
   return (
-    <div>team</div>
+     
+         <div className=''>
+       
+        <EmptyState2/>
+    </div>
+    
+     
+   
+   
   )
 }
 
-export default page
+export default Users

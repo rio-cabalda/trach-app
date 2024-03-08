@@ -1,0 +1,52 @@
+'use client';
+
+
+import { User } from "@prisma/client";
+
+import UserBox from "./UserBox";
+import { Label, TextInput } from "flowbite-react";
+import { MdSearch } from "react-icons/md";
+
+interface UserListProps {
+  items: User[];
+}
+
+const UserList: React.FC<UserListProps> = ({ 
+  items, 
+}) => {
+  return ( 
+    <aside 
+      className="
+       shadow-lg
+      "
+    >
+      <div className="px-5">
+        <div className="flex-col">
+          <div 
+            className="
+              text-2xl 
+              font-bold 
+              text-neutral-800 
+              py-4
+            "
+          >
+             <div className="max-w-md">
+      <div className="mb-2 block">
+        <Label htmlFor="email4" value="Agents" />
+      </div>
+      <TextInput id="email4" type="email" rightIcon={MdSearch} placeholder="Find Agents" required />
+    </div>
+          </div>
+        </div>
+        {items.map((item) => (
+          <UserBox
+            key={item.id}
+            data={item}
+          />
+        ))}
+      </div>
+    </aside>
+  );
+}
+ 
+export default UserList;
