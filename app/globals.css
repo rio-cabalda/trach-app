@@ -247,6 +247,16 @@ body {
   @apply cursor-default select-none py-2 pl-10 pr-4;
 }
 
+.blog-card > *{
+  padding: 0 !important;
+}
+/* Left and right button of Blog Carousel */
+/* .custom-carousel > div:nth-child(3) button,
+.custom-carousel > div:nth-of-type(4) button {
+  background-color: #8C3AFF!important;
+  overflow: hidden;
+  border-radius: 100%;
+} */
 
 .right-offcanvas-modal {
   width: 30%;
@@ -257,6 +267,17 @@ body {
   top: 0;
   height: 100%;
   overflow-y: auto;
+}
+.slick-slide{
+ display: flex !important;
+ justify-content: center !important;
+}
+
+.slick-prev::before , .slick-next::before {
+  transform: scale(3) !important; 
+  color: #8C3AFF !important;
+  width: 400px !important;
+  height: 400px !important;
 }
 
 .right-offcanvas-modal.show {

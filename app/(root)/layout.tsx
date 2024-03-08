@@ -11,7 +11,7 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser()
   return (
    
-    <div className=" relative ">  
+    <div className="relative bg-white">  
      <FlowbiteNavBar currentUser={currentUser!}/> 
           
       <main  className="flex-1">{children}</main>

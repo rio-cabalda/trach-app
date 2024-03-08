@@ -8,8 +8,8 @@ import { newsOutlets } from '../constants/index';
 
 const AsSeenIn = () => {
   return (
-    <section className=" dark:bg-gray-900 py-20">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl">
+    <section className="  dark:bg-gray-900 py-20">
+      <div className="py-8 px-4 mx-auto max-w-[75rem] xl:px-0">
         <div className="max-w-[563px]">
           <h1 className="text-[#7100C3] font-semibold text-xl">As Seen In</h1>
           <h1 className="text-[#2D0173] dark:text-white text-4xl sm:text-5xl font-extrabold my-2 leading-[40px] sm:leading-[60px]">

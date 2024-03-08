@@ -17,6 +17,7 @@ import SearchBar2 from './SearchBar2';
 import SearchManufacturer from './SearchLocation';
 import ShowMore from './ShowMore';
 import WhyChoose from './WhyChoose';
+import Blogs2 from "./Blogs2";
 
 
 export{
@@ -35,6 +36,7 @@ export{
     AsSeenIn,
     CarouselBlogs,
     Blogs,
+    Blogs2,
     SearchBar2,
     ShowMore,
     CarCard2,
