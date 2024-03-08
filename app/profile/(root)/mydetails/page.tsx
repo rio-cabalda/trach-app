@@ -1,8 +1,14 @@
 import React from 'react'
+import Details from './components/Details'
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
-const page = () => {
+
+async function page  ({children}:{
+  children:React.ReactNode;
+}){
+  const currentUser = await getCurrentUser();
   return (
-    <div>My Details</div>
+    <div><Details currentUser={currentUser!}/></div>
   )
 }
 

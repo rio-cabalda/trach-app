@@ -24,7 +24,7 @@ model User{
   listing String?
   bio String?
   website String?
-  // services Service[]
+ 
   services String[]
   
 
@@ -105,11 +105,4 @@ model Agent {
   updatedAt   DateTime    @updatedAt
 }
 
-//  model Service {
-//   id        String      @id @default(auto()) @map("_id") @db.ObjectId
-//   name      String
-  
-  
-//   userId    String      @db.ObjectId
-//   user      User        @relation(fields: [userId], references: [id])
-// }
+ 

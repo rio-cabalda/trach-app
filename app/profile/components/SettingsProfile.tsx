@@ -5,7 +5,8 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { User } from '@prisma/client';
-// import { CldUploadButton } from 'next-cloudinary';
+import Select from 'react-select';
+
 
 import Input from '@/app/login/components/inputs/Input';
  
@@ -17,7 +18,11 @@ import { toast } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 
 
-
+const servicesOptions = [
+  { value: 'service1', label: 'Service 1' },
+  { value: 'service2', label: 'Service 2' },
+  // Add more service options as needed
+];
 
 interface ProfileProps{
     currentUser?:Partial<User>;
@@ -61,6 +66,8 @@ const SettingsProfile:React.FC<ProfileProps> = ({
       email: currentUser?.email || '',
       contactNumber: currentUser?.contactNumber || '',
       bio: currentUser?.bio || '',
+      services: currentUser?.services || [],
+      
     }
   });
 
@@ -73,8 +80,9 @@ const SettingsProfile:React.FC<ProfileProps> = ({
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const requiredFields = ['name', 'email', 'contactNumber', 'role', 'bio'];
+    const requiredFields = ['name', 'email'];
   const isEmptyField = requiredFields.some((field) => !data[field]);
+  
 
   if (isEmptyField) {
     toast.error('Please fill in all required fields.');
@@ -85,7 +93,7 @@ const SettingsProfile:React.FC<ProfileProps> = ({
 
     axios.post('/api/settings', data)
     .then(() => {
-      router.refresh();
+      router.push('/profile/mydetails');
       
     })
     .catch(() => toast.error('Something went wrong!'))
@@ -124,6 +132,8 @@ const SettingsProfile:React.FC<ProfileProps> = ({
       [field]: !prev[field],
     }));
   };
+
+ 
   return (
     <div className='p-5 pl-10'>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -159,14 +169,7 @@ const SettingsProfile:React.FC<ProfileProps> = ({
                 </div>
 
 
-              {/* <Input
-                disabled={isLoading}
-                label="Name" 
-                id="name" 
-                errors={errors} 
-                
-                register={register}
-              /> */}
+               
               <div>
                 <label 
                   htmlFor="photo" 
@@ -292,6 +295,7 @@ const SettingsProfile:React.FC<ProfileProps> = ({
             {/* Bio Textarea */}
             <textarea
               id="bio"
+              {...register('bio')} 
               disabled={isLoading}
               className="
                 mt-2 
@@ -361,7 +365,27 @@ const SettingsProfile:React.FC<ProfileProps> = ({
     )}
   </div>
 ))}
-     
+      <div className="mt-5">
+          <label
+            htmlFor="services"
+            className="block text-sm font-bold leading-6 text-purple-800"
+          >
+            Services
+          </label>
+          <Select
+            id="services"
+            options={servicesOptions}
+            isMulti
+            onChange={(selectedOptions: any, actionMeta: any) => {
+              // Use setValue to manually update the form state for multi-select options
+              setValue('services', selectedOptions.map((option: any) => option.value));
+            }}
+            // ... other props
+          />
+          {errors.services && typeof errors.services === 'string' && (
+            <p className="mt-2 text-sm text-red-500">{errors.services}</p>
+          )}
+        </div>
               </div>
               
             </div>

@@ -12,21 +12,22 @@ const useRoutes =()=>{
     const routes = useMemo(()=>[
         {
             label:'Chat',
-            href: '/conversations',
+            href: '/profile/messages',
             icon:HiChat,
-            active:pathname === '/conversations' || !!conversationId
+            active:pathname === '/profile/messages' || !!conversationId
         },
         {
             label:'Users',
-            href: '/users',
+            href: '/profile/team',
             icon: HiUsers,
-            active:pathname ==='/users'
+            active:pathname ==='/profile/team'
         },
         {
             label:'Logout',
             href:'#',
             onClick:()=>signOut(),
             icon: HiArrowLeftOnRectangle
+           
         }
     ],[pathname, conversationId]);
     return routes;
