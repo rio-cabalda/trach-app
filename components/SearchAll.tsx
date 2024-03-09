@@ -173,12 +173,18 @@ return (
                         <div className='h-[3px] w-[3px] bg-black rounded-full animate-bounce'></div>
                       </div>
                       </div>}
-                  {(suggestedList?.length > 1 && !isLoading && !userIsTyping) && 
+                  {(suggestedList?.length > 0 && !isLoading && !userIsTyping) && 
                     <div className="w-full h-full flex flex-col">
                       {suggestedList.map((city)=>(
                         <button key={city} onClick={()=>handleSelectedLocation(city)} className="capitalize flex items-center px-4 py-2 gap-2 hover:bg-purple-300 active:bg-purple-500">
                         <LiaCitySolid size={16}/>{city}</button>
                         ))}
+                    </div>
+                  }
+                  {(suggestedList?.length === 0 && !isLoading && !userIsTyping) && 
+                    <div className="w-full h-full flex flex-col">
+                        <p className="capitalize flex items-center justify-center px-4 py-2 gap-2 hover:bg-purple-300 active:bg-purple-500">
+                        No results found</p>
                     </div>
                   }
                   

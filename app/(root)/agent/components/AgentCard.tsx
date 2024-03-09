@@ -34,7 +34,7 @@ function formatReview(value:string){
 
 
 // Define the AgentCard component
-const AgentCard: React.FC<any> = ({ agent,agentType }) => {
+const AgentCard: React.FC<any> = ({ agent }) => {
   // Initialize state and router
   const [isOpen, setIsOpen] = useState(false);
   const [agentDetails, setAgentDetails] = useState<any>("");
