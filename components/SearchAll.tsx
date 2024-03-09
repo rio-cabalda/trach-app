@@ -51,33 +51,16 @@ const SearchAll = () => {
     setTypingTimer(setTimeout(async() => {
       setUserIsTyping(false);
       setIsLoading(true);
-      const searchedLocation = await fetchLocation(location) as any;
-      // Extract counties arrays from each object in the autocomplete array
-      const countiesArrays:any[] = searchedLocation?.autocomplete?.map((item: any) => item.counties) as any;
-
-  
-      // Flatten the arrays into a single array and remove duplicates
-      const uniqueCounties: any[] = countiesArrays?.reduce((acc: any[], countiesArray: any[]) => {
-        countiesArray?.forEach((county: any) => {
-            // Check if county name already exists in the accumulator array
-            const existingCounty = acc.find((c: any) => c.name === county.name);
-            // If the county name doesn't exist, add it to the accumulator array
-            if (!existingCounty) {
-            acc.push(county);
-            }
-        });
-        return acc;
-        }, []);
-        setSuggestedList(uniqueCounties);
-        setIsLoading(false);
+      const searchedLocation = await fetchLocation(newValue) as any;
+      setSuggestedList(searchedLocation);
+      setIsLoading(false);
     }, 3000));
   }
 
-  const handleSelectedLocation = (data:any) =>{
-    console.log("search data: ",data);
-    setLocation(data.name)
+  const handleSelectedLocation = (location:string) =>{
+    setLocation(location)
     setSearchOpen(false);
-    setSelectedLocationData(data);
+    setSelectedLocationData(location);
   }
 
   const handleSearch = async (agentType: string) => {
@@ -87,7 +70,7 @@ const SearchAll = () => {
     try {
       if(selectedLocationData){
         // await updateSearchParams(type, location.toLowerCase());
-        router.push(`/agent?agentType=${agentType}&location=${location}&postalcode=${selectedLocationData.fips}&limit=50`);
+        router.push(`/agent?agentType=${agentType}&location=${selectedLocationData}&limit=50`);
       }
     } catch (error) {
       console.error('Error updating search parameters:', error);
@@ -193,8 +176,8 @@ return (
                   {(suggestedList?.length > 1 && !isLoading && !userIsTyping) && 
                     <div className="w-full h-full flex flex-col">
                       {suggestedList.map((city)=>(
-                        <button key={city.name} onClick={()=>handleSelectedLocation(city)} className="capitalize flex items-center px-4 py-2 gap-2 hover:bg-purple-300 active:bg-purple-500">
-                        <LiaCitySolid size={16}/>{city.name}</button>
+                        <button key={city} onClick={()=>handleSelectedLocation(city)} className="capitalize flex items-center px-4 py-2 gap-2 hover:bg-purple-300 active:bg-purple-500">
+                        <LiaCitySolid size={16}/>{city}</button>
                         ))}
                     </div>
                   }

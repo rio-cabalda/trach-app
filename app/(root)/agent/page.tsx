@@ -9,9 +9,9 @@ import { fetchAgent } from "@/utils/fetchApiData";
 import AgentList from "./components/AgentList";
 
 export default async function Home({ searchParams }: HomeProps) {
-  const {agentType, location, postalcode, limit} = searchParams;
+  const {agentType, location, limit} = searchParams;
 
-  const agentList = await fetchAgent(postalcode?.trim(),limit?.trim(),agentType);
+  const agentList = await fetchAgent(location?.trim(),limit?.trim(),agentType);
   const isDataEmpty = !agentList || agentList.length === 0 || agentList.length < 1;
 
 

@@ -11,6 +11,8 @@ function AgentList({agentList:agents, agentType}:any) {
     const [currentPage, setCurrentPage] = useState(1);
     const agentsPerPage = 10;
     const pageNumbers = [];
+    console.log("Agent List", agents);
+    
     for (let i = 1; i <= Math.ceil(agents.length / agentsPerPage); i++) {
         pageNumbers.push(i);
     }
