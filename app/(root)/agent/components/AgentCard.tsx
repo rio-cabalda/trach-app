@@ -31,8 +31,6 @@ function formatReview(value:string){
   }
 }
 
-
-
 // Define the AgentCard component
 const AgentCard: React.FC<any> = ({ agent }) => {
   // Initialize state and router
@@ -40,37 +38,6 @@ const AgentCard: React.FC<any> = ({ agent }) => {
   const [agentDetails, setAgentDetails] = useState<any>("");
   const router = useRouter();
   const {} = agent;
-
-  useEffect(()=>{
-    // const fetchListingData = async() => {
-    //   const options = {
-    //     method: 'GET',
-    //     url: 'https://realty-in-us.p.rapidapi.com/agents/get-listings',
-    //     params: {
-    //       fulfillment_id: '1633379',
-    //       id: agent.id,
-    //       agent_id: agent.id,
-    //       type: 'all',
-    //       page: '1'
-    //     },
-    //     headers: {
-    //       'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',
-    //       'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
-    //     }
-    //   };
-      
-    //   try {
-    //     const response = await axios.request(options);
-    //     console.log("Listing data",response.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
-    // fetchListingData();
-  },[]);
-  
-  console.log("agent: ", agent);
-  
   
   const minPrice = formatMoney(agent?.recently_sold?.min);
   const maxPrice = formatMoney(agent?.recently_sold?.max)
@@ -95,7 +62,9 @@ const AgentCard: React.FC<any> = ({ agent }) => {
       {/* Header */}
       <div className='flex w-full h-[25px] items-center justify-between'>
         <div className='relative h-[25px] w-12'>
-          {agent.office.photo.href ? <Image loader={()=>agent?.office?.photo?.href} src={agent?.office?.photo?.href} fill={true} alt="Office Photo"  />: <div></div>}
+          {agent.office.photo.href ? <Image 
+          // loader={()=>agent?.office?.photo?.href}
+          src={agent?.office?.photo?.href} fill={true} alt="Office Photo"  />: <div></div>}
           
         </div>
         <div className='flex text-green-500 items-center gap-2 font-semibold text-sm'>
@@ -112,10 +81,13 @@ const AgentCard: React.FC<any> = ({ agent }) => {
           </Avatar> */}
           <div>
             <div className="relative w-[53px] h-[53px] rounded-full overflow-hidden">
+              {agent?.photo?.href && 
               <Image className="absolute origin-center top-0 -translate-y-3"
-              loader={()=>agent?.photo?.href} src={agent?.photo?.href? agent?.photo?.href: ""}
+              loader={()=>agent?.photo?.href} 
+              src={agent?.photo?.href}
               width={60} height={60} 
               alt="Photo"/>
+            }
             </div>
           </div>
 

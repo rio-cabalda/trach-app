@@ -7,7 +7,7 @@ import AgentCard from "./AgentCard"
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { CustomFilter } from '@/components';
-import { PriceRange, SelectRating } from '@/constants';
+import { PriceRange, AverageTime } from '@/constants';
 import Link from 'next/link';
 
 function AgentList({agentList, location}:any) {
@@ -18,17 +18,17 @@ function AgentList({agentList, location}:any) {
     const pageNumbers = [];
     console.log("Agent List", agents);
     
-    for (let i = 1; i <= Math.ceil(agents.length / agentsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(agents?.length / agentsPerPage); i++) {
         pageNumbers.push(i);
     }
 
-    const isDataEmpty = !agents || agents.length === 0 || agents.length < 1;
+    const isDataEmpty = !agents || agents?.length === 0 || agents?.length < 1;
     console.log("isDataEmpty",isDataEmpty);
     
     // Logic to calculate the index of the first and last agents on the current page
     const indexOfLastAgent = currentPage * agentsPerPage;
     const indexOfFirstAgent = indexOfLastAgent - agentsPerPage;
-    const currentAgents = agents.slice(indexOfFirstAgent, indexOfLastAgent);
+    const currentAgents = agents?.slice(indexOfFirstAgent, indexOfLastAgent);
 
     // Function to handle pagination when clicking on page numbers
     const handleClick = (pageNumber:number) => {
@@ -37,7 +37,7 @@ function AgentList({agentList, location}:any) {
 
     // Function to handle navigating to the next page
     const nextPage = () => {
-        if(currentPage !==  agents.length){
+        if(currentPage !==  agents?.length){
             setCurrentPage((prevPage) => prevPage + 1);
         }
     };
@@ -51,10 +51,10 @@ function AgentList({agentList, location}:any) {
     
     return (<>
         <div className='flex justify-between relative mt-5 mx-4 p-3 bg-white'>
-            <CustomFilter title='rating' options={SelectRating} />
-            <CustomFilter title='price' options={PriceRange} />
-            <CustomFilter title='empty' options={PriceRange} />
-            <CustomFilter title='empty' options={PriceRange} />
+            <CustomFilter title='Avg sale time' options={AverageTime} />
+            <CustomFilter title='Price range' options={PriceRange} />
+            <CustomFilter title='Total reviews' options={PriceRange} />
+            <CustomFilter title='Total fees' options={PriceRange} />
 
             <Link href={"/"}>
             <button className='text-white bg-purple-700 p-2 rounded-md'>

@@ -6,6 +6,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const {agentType, location, limit} = searchParams;
 
   const agentList = await fetchAgent(location?.trim(),limit?.trim(),agentType);
+console.log("search params", searchParams);
 
 
   const handleShowMore = () => {

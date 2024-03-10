@@ -100,9 +100,8 @@ export default function Blogs2() {
 
       <Slider className=" mx-auto flex justify-center items-center" {...settings}>
           {images.slice(0, 3).map((image) => (
-            <div style={{display:"flex", justifyContent:"center"}} className="w-[366px] sm:w-[366px] h-[465px]">
+            <div  key={image.id} style={{display:"flex", justifyContent:"center"}} className="w-[366px] sm:w-[366px] h-[465px]">
               <Card
-              key={image.id}
               className="blog-card w-[366px] sm:w-[366px] h-[465px] rounded-lg overflow-hidden duration-300 shadow-none border-none px-4 md:p-0"
               renderImage={() => <Image width={366} height={100} src={image.src} objectFit="cover" alt="Explore insight" className="rounded-lg"/>}
             >
@@ -133,9 +132,8 @@ export default function Blogs2() {
             </div>
           ))}
           {images.slice(0, 3).map((image) => (
-            <div style={{display:"flex", justifyContent:"center"}} className="w-[366px] sm:w-[366px] h-[465px]">
+            <div key={image.id} style={{display:"flex", justifyContent:"center"}} className="w-[366px] sm:w-[366px] h-[465px]">
               <Card
-              key={image.id}
               className="blog-card w-[366px] sm:w-[366px] h-[465px] rounded-lg overflow-hidden duration-300 shadow-none border-none px-4 md:p-0"
               renderImage={() => <Image width={366} height={100} src={image.src} objectFit="cover" alt="Explore insight" className="rounded-lg"/>}
             >

@@ -143,7 +143,7 @@ export const fetchAgent = async(location: string | undefined,limit: string | und
             types: 'agent'
             },
             headers: {
-                'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',
+                'X-RapidAPI-Key': 'ee7219ff7emshc4213874b0102a4p159e17jsn329a36218abf',
                 'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
             }
         };
@@ -170,7 +170,7 @@ export const fetchAgentProfile = async(advertiser_id:string | null, nrds_id:stri
             nrds_id: nrds_id
         },
         headers: {
-            'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',
+            'X-RapidAPI-Key': 'ee7219ff7emshc4213874b0102a4p159e17jsn329a36218abf',
             'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
         }
         };
@@ -193,7 +193,7 @@ export const fetchAgentReviews = async(advertiser_id:string | null) => {
             advertiser_id
         },
         headers: {
-            'X-RapidAPI-Key': 'dbd77582a3msh709e5494b8b6ff2p16f799jsn12231d10fa1d',
+            'X-RapidAPI-Key': 'ee7219ff7emshc4213874b0102a4p159e17jsn329a36218abf',
             'X-RapidAPI-Host': 'realty-in-us.p.rapidapi.com'
         }
         };

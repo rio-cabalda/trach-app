@@ -17,8 +17,13 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'ap.rdcpix.com'
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost:3000/'
       }
     ],
+    domains: ['*']
   },
   typescript: {
     ignoreBuildErrors: true,

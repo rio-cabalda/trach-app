@@ -366,7 +366,7 @@ export const postal_codes =[
     { title: "2022", value: "2022" },
     { title: "2023", value: "2023" },
   ];
-  export const SelectRating = [
+  export const AverageTime = [
     {
       title: "1",
       value: 1,
