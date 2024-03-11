@@ -366,7 +366,7 @@ export const postal_codes =[
     { title: "2022", value: "2022" },
     { title: "2023", value: "2023" },
   ];
-  export const AverageTime = [
+  export const AverageTimeList = [
     {
       title: "1",
       value: 1,
@@ -388,26 +388,38 @@ export const postal_codes =[
       value:5,
     },
   ];
-  export const PriceRange = [
+  export const PriceRangeList = [
     {
       title: "50k-100k",
-      value: 50000_100000,
+      value: {min: 50000,
+              max: 100000
+            }
     },
     {
       title: "101k-250k",
-      value:101000_250000,
+      value:{min:101000, max:250000},
     },
     {
       title: "251k-500k",
-      value: 251000_500000,
+      value: {min:251000, max:500000},
     },
     {
       title: "501k-1M",
-      value:501000_1000000,
+      value: {min:501000, max:1000000},
     },
     {
       title: "1M-2M",
-      value:1000000_2000000,
+      value: {min:1000000, max:2000000},
+    },
+  ];
+  export const totalReviewList = [
+    {
+      title: "Highest to Lowest",
+      value: "Highest to Lowest",
+    },
+    {
+      title: "Lowest to Highest",
+      value: "Lowest to Highest",
     },
   ];
   

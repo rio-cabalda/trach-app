@@ -39,8 +39,8 @@ const AgentCard: React.FC<any> = ({ agent }) => {
   const router = useRouter();
   const {} = agent;
   
-  const minPrice = formatMoney(agent?.recently_sold?.min);
-  const maxPrice = formatMoney(agent?.recently_sold?.max)
+  const minPrice = formatMoney(agent?.for_sale_price?.min);
+  const maxPrice = formatMoney(agent?.for_sale_price?.max)
   
   const headerData = { minPrice: minPrice, maxPrice:maxPrice, avgSaleTime: '4 weeks', recentSold:`${agent?.recently_sold?.count? agent?.recently_sold?.count: "10"}`};
   const queryParams = new URLSearchParams(headerData).toString();
@@ -63,7 +63,7 @@ const AgentCard: React.FC<any> = ({ agent }) => {
       <div className='flex w-full h-[25px] items-center justify-between'>
         <div className='relative h-[25px] w-12'>
           {agent.office.photo.href ? <Image 
-          // loader={()=>agent?.office?.photo?.href}
+          loader={()=>agent?.office?.photo?.href}
           src={agent?.office?.photo?.href} fill={true} alt="Office Photo"  />: <div></div>}
           
         </div>

@@ -1,37 +1,90 @@
 "use client"
 // Hooks
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 // Component
 import AgentCard from "./AgentCard"
 // icons
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { CustomFilter } from '@/components';
-import { PriceRange, AverageTime } from '@/constants';
+import { PriceRangeList, AverageTimeList, totalReviewList } from '@/constants';
 import Link from 'next/link';
+import useFiltersStore, { Filters } from "@/store/useFiltersStore";
+
 
 function AgentList({agentList, location}:any) {
     const [ currentPage, setCurrentPage ] = useState(1);
     const [ agents, setAgents ] = useState(agentList);
 
+    const { avgSaleTime, priceRange, totalReviews, totalFees } = useFiltersStore() as Filters;
+
+    console.log("totalReviews",totalReviews);
+    // console.log("Agent List", agents);
     const agentsPerPage = 10;
     const pageNumbers = [];
-    console.log("Agent List", agents);
     
     for (let i = 1; i <= Math.ceil(agents?.length / agentsPerPage); i++) {
         pageNumbers.push(i);
     }
-
-    const isDataEmpty = !agents || agents?.length === 0 || agents?.length < 1;
-    console.log("isDataEmpty",isDataEmpty);
-    
     // Logic to calculate the index of the first and last agents on the current page
     const indexOfLastAgent = currentPage * agentsPerPage;
     const indexOfFirstAgent = indexOfLastAgent - agentsPerPage;
     const currentAgents = agents?.slice(indexOfFirstAgent, indexOfLastAgent);
 
+    useEffect(()=>{
+        console.log("=====re render=======");
+    },[agents]);
+
+    // useEffect(() => {
+    //     // Do something when any of the state values change
+    //     console.log('State changed:', avgSaleTime, priceRange, totalReviews, totalFees);
+        
+        
+    // }, [avgSaleTime, priceRange, totalReviews, totalFees]);
+    const handleClearFilter = () =>{
+        setAgents(agentList)
+    }
+    const handleApplyFilter = () => {
+        setCurrentPage(1);
+            let filteredAgents = [...agentList];
+
+            // Filter by price range if priceRange is set
+            if (priceRange) {
+            const { min, max } = priceRange;
+            filteredAgents = filteredAgents.filter((agent:any) => {
+                const { for_sale_price } = agent;
+                if (!for_sale_price) return false;
+                const { min: agentMinPrice, max: agentMaxPrice } = for_sale_price;
+                return agentMinPrice >= min && agentMaxPrice <= max;
+            });
+            }
+
+            // Sort by total reviews if totalReviews is set
+            if (totalReviews) {
+            filteredAgents.sort((a:any, b:any) => {
+                const reviewCountA = a.review_count || 0;
+                const reviewCountB = b.review_count || 0;
+                if (totalReviews === 'Highest to Lowest') {
+                return reviewCountB - reviewCountA;
+                } else {
+                return reviewCountA - reviewCountB;
+                }
+            });
+            }
+            console.log("Apply FIlter button clicked", totalReviews);
+            setAgents(filteredAgents);
+        
+    }
+
+    
+
+    const isDataEmpty = !agents || agents?.length === 0 || agents?.length < 1;
+    console.log("isDataEmpty",isDataEmpty);
+    
+    
+
     // Function to handle pagination when clicking on page numbers
-    const handleClick = (pageNumber:number) => {
+    const handleClickPageNumber = (pageNumber:number) => {
         setCurrentPage(pageNumber);
     };
 
@@ -51,16 +104,22 @@ function AgentList({agentList, location}:any) {
     
     return (<>
         <div className='flex justify-between relative mt-5 mx-4 p-3 bg-white'>
-            <CustomFilter title='Avg sale time' options={AverageTime} />
-            <CustomFilter title='Price range' options={PriceRange} />
-            <CustomFilter title='Total reviews' options={PriceRange} />
-            <CustomFilter title='Total fees' options={PriceRange} />
+            <CustomFilter title='Avg sale time' options={AverageTimeList} />
+            <CustomFilter title='Price range' options={PriceRangeList} />
+            <CustomFilter title='Total reviews' options={totalReviewList} />
+            <CustomFilter title='Total fees' options={PriceRangeList} />
 
-            <Link href={"/"}>
-            <button className='text-white bg-purple-700 p-2 rounded-md'>
-                Apply Filters
+            <div className="flex gap-2">
+                <button className='text-white bg-purple-700 p-2 rounded-md'
+                    onClick={handleApplyFilter}>
+                    Apply Filters
                 </button>
-            </Link>
+                <button className='text-white bg-purple-700 p-2 rounded-md'
+                onClick={handleClearFilter}
+                >
+                Clear
+            </button>
+            </div>
         </div>
         <div className=' mt-16 flex justify-start flex-row gap-2 mx-[6%] text-xl font-extrabold '>
             {agents?.length > 0
@@ -112,7 +171,7 @@ function AgentList({agentList, location}:any) {
                             </li>
                             {pageNumbers.map((number) => (
                             <li key={number}>
-                                <button className="h-14 w-14 flex items-center justify-center bg-gray-200 hover:bg-purple-400 disabled:bg-purple-200" disabled={currentPage === number} onClick={() => handleClick(number)}>{number}</button>
+                                <button className="h-14 w-14 flex items-center justify-center bg-gray-200 hover:bg-purple-400 disabled:bg-purple-200" disabled={currentPage === number} onClick={() => handleClickPageNumber(number)}>{number}</button>
                             </li>
                             ))}
                             <li>

@@ -7,17 +7,41 @@ import { Listbox, Transition } from "@headlessui/react";
 
 import { CustomFilterProps } from "@/types";
 import { updateSearchParams} from "@/utils";
+import useFiltersStore, { Filters } from "@/store/useFiltersStore";
 
-export default function CustomFilter({ title, options }: CustomFilterProps) {
+
+function toCamelCase(text:string) {
+  // Split the string into words
+  const words = text.split(' ');
+  
+  // Capitalize the first letter of each word except the first one
+  const camelCaseWords = words.map((word, index) => {
+      if (index === 0) {
+          return word.toLowerCase(); // Convert the first word to lowercase
+      } else {
+          return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(); // Capitalize the first letter
+      }
+  });
+  
+  // Join the words together without spaces
+  return camelCaseWords.join('');
+}
+
+export default function CustomFilter({ title, options }: any) {
   const router = useRouter();
+  const { updateFilter } = useFiltersStore.getState() as { updateFilter: (filterName: keyof Filters, value: string | null) => void };
   const [selected, setSelected] = useState(options[0]); // State for storing the selected option
 
-  // update the URL search parameters and navigate to the new URL
-  const handleUpdateParams = (e: { title: string; value: string | number }) => {
-    const newPathName = updateSearchParams(title, e.value.toString().toLowerCase());
 
-    router.push(newPathName);
+  const handleUpdateParams = (e: { title: string; value: any }) => {
+    const value = e.value;
+    updateFilter(toCamelCase(title) as keyof Filters, value || null);
+    
+    // const newPathName = updateSearchParams(toCamelCase(title), e.value.toString().toLowerCase());
+    // router.push(newPathName);
   };
+
+  
 
   return (
     <div className='w-fit'>
@@ -44,8 +68,8 @@ export default function CustomFilter({ title, options }: CustomFilterProps) {
               Select {title}
             </p>
             <span className='truncate text-[#2D0173] font-semibold flex gap-5 pr-2'> {selected.title}
-             <Image src='/time.svg' width={5} height={20} className=' object-contain' alt='chevron_up-down' /></span>
-           
+            <Image src='/time.svg' width={5} height={20} className=' object-contain' alt='chevron_up-down' /></span>
+          
           </Listbox.Button>
           </div>
           
@@ -58,7 +82,7 @@ export default function CustomFilter({ title, options }: CustomFilterProps) {
           >
             <Listbox.Options className='custom-filter__options'>
               {/* Map over the options and display them as listbox options */}
-              {options.map((option) => (
+              {options.map((option:any) => (
                 <Listbox.Option
                   key={option.title}
                   className={({ active }) =>

@@ -17,7 +17,7 @@ console.log("search params", searchParams);
   
   return (
     <main className='overflow-hidden bg-slate-50'>
-      <AgentList agentList={agentList} location={location}/>
+      <AgentList agentList={agentList} location={location} />
     </main>
   );
 }

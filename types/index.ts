@@ -88,7 +88,7 @@ export interface OptionProps {
 
 export interface CustomFilterProps {
   title: string;
-  options: OptionProps[];
+  options: OptionProps[] |{min:number,max:number};
 }
 
 export interface ShowMoreProps {
